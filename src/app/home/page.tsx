@@ -21,8 +21,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-
+import Sb from '@/components/ui/sb'
 import { MagnifyingGlassIcon as SearchIcon } from "@radix-ui/react-icons";
+import { Sidebar } from "lucide-react";
+import { SidebarHeader, SidebarProvider } from "@/components/ui/sidebar";
+import { HierarchySidebar } from "@/components/ui/sidebar-hierarchy";
 
 const API = 'http://89.111.155.239:8000/get_employees';
 const data = await fetch('http://89.111.155.239:8000/get_employees?page=1&size=20');
@@ -65,13 +68,16 @@ export default async function Page() {
         <InputSearch type='search' icon={SearchIcon} iconProps={{ behavior: 'prepend', className: 'h-6 w-6 stroke-jet stroke-1' }} className='bg-uran rounded-[15px] w-full shadow-none border-none text-[17px]' />
         <Button className="w-[150px] h-full text-[18px] rounded-[15px] bg-celestial text-jet border-none shadow-none hover:bg-azul">Найти</Button>
       </div>
+      <div className="flex flex-row w-full h-full">
+      <Sb/>
+      <div className="w-full h-full flex flex-col">
       <div className="w-full h-full">
         <Table>
           <TableHeader>
             <TableRow className='bg-columbia'>
               <TableHead className='rounded-tl-[15px] text-center text-jet'>ФИО</TableHead>
               <TableHead className="text-center text-jet">Должность</TableHead>
-              <TableHead className="text-center text-jet">Префикс</TableHead>
+              <TableHead className="text-center text-jet">Почта</TableHead>
               <TableHead className='rounded-tr-[15px] text-center text-jet'>Телефон</TableHead>
             </TableRow>
           </TableHeader>
@@ -80,8 +86,8 @@ export default async function Page() {
               <TableRow key={user.ID} >
                 <TableCell>{user.FullNameRus}</TableCell>
                 <TableCell>{user.Workplace}</TableCell>
-                <TableCell>{user.Phone.substring(0, 2)}</TableCell>
-                <TableCell>{user.Phone.substring(2, 4)}</TableCell>
+                <TableCell>{user.Email}</TableCell>
+                <TableCell>({user.Phone.substring(0, 2)}) {user.Phone.substring(2, 4)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -103,6 +109,8 @@ export default async function Page() {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
+      </div>
+      </div>
       </div>
     </div >
   );

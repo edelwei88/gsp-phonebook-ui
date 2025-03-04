@@ -71,12 +71,13 @@ export default async function Page({
         <Button className="w-[150px] h-full text-[18px] rounded-[15px] bg-celestial text-jet border-none shadow-none hover:bg-azul">Найти</Button>
       </div>
       <div className="w-full h-full">
+        
         <Table>
           <TableHeader>
             <TableRow className='bg-columbia'>
               <TableHead className='rounded-tl-[15px] text-center text-jet'>ФИО</TableHead>
               <TableHead className="text-center text-jet">Должность</TableHead>
-              <TableHead className="text-center text-jet">Префикс</TableHead>
+              <TableHead className="text-center text-jet">Почта</TableHead>
               <TableHead className='rounded-tr-[15px] text-center text-jet'>Телефон</TableHead>
             </TableRow>
           </TableHeader>
@@ -85,8 +86,8 @@ export default async function Page({
               <TableRow key={user.ID} >
                 <TableCell>{user.FullNameRus}</TableCell>
                 <TableCell>{user.Workplace}</TableCell>
-                <TableCell>{user.Phone.substring(0, 2)}</TableCell>
-                <TableCell>{user.Phone.substring(2, 4)}</TableCell>
+                <TableCell>{user.Email}</TableCell>
+                <TableCell>({user.Phone.substring(0, 2)}) {user.Phone.substring(2, 4)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
