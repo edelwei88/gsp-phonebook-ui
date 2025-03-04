@@ -2,23 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme static {
-    --color-background-light: #e6f1fa;
-    --color-background-darker: #a3d3f5;
-    --color-background-dark: #b1c4d1;
-    --color-azure: #086eb6;
-    --color-accent: #4e9ad0;
-    --color-text: #333333;
+@theme {
 }
 
 body {
     font-family: Arial, sans-serif;
 }
 
-
-
 @layer base {
-  :root {
+    :root {
         --background: 0 0% 100%;
         --foreground: 0 0% 3.9%;
         --card: 0 0% 100%;
@@ -53,7 +45,7 @@ body {
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
     }
-  .dark {
+    .dark {
         --background: 0 0% 3.9%;
         --foreground: 0 0% 98%;
         --card: 0 0% 3.9%;
@@ -89,13 +81,11 @@ body {
     }
 }
 
-
-
 @layer base {
-  * {
-    @apply border-border;
+    * {
+        @apply border-border;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
     }
 }

@@ -1,22 +1,16 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
   title: 'Phonebook',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang='ru'>
       <body>
-        <Navbar />
         {children}
       </body>
-    </html >
+    </html>
   );
 }
