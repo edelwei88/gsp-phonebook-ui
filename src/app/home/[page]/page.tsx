@@ -21,7 +21,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-
+import Sb from "@/components/ui/sb";
 import { MagnifyingGlassIcon as SearchIcon } from "@radix-ui/react-icons";
 
 
@@ -70,8 +70,10 @@ export default async function Page({
         <InputSearch type='search' icon={SearchIcon} iconProps={{ behavior: 'prepend', className: 'h-6 w-6 stroke-jet stroke-1' }} className='bg-uran rounded-[15px] w-full shadow-none border-none text-[17px]' />
         <Button className="w-[150px] h-full text-[18px] rounded-[15px] bg-celestial text-jet border-none shadow-none hover:bg-azul">Найти</Button>
       </div>
+      <div className="flex flex-row w-full h-full">
+      <Sb/>
+      <div className="w-full h-full flex flex-col">
       <div className="w-full h-full">
-        
         <Table>
           <TableHeader>
             <TableRow className='bg-columbia'>
@@ -109,6 +111,8 @@ export default async function Page({
             </PaginationItem>
           </PaginationContent>
         </Pagination>
+      </div>
+      </div>
       </div>
     </div >
   );
