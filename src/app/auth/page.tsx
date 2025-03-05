@@ -31,6 +31,7 @@ const FormSchema = z.object({
 
 
 export default function Page() {
+
   useLayoutEffect(() => {
     check_cookies();
   }, []);
@@ -49,37 +50,67 @@ export default function Page() {
   }
 
   return (
-    < Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+    <div className="min-h-screen rounded-xl flex items-center justify-center bg-white">
+      <Form {...form}>
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="bg-alice p-8 rounded-lg shadow-md w-2/3"
+        >
+          <h2 className="text-2xl rounded-xl font-sans mb-6 text-center text-gray-700">
+            Авторизация
+          </h2>
+
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem className="mb-4">
+                <FormLabel>Имя пользователя</FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="Введите логин" 
+                    {...field} 
+                    className={`${form.formState.errors.username && 'border-sky-600'}`}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Имя пользователя</FormLabel>
-              <FormControl>
-                <Input placeholder="Ваше имя пользователя" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="mb-6">
+                <FormLabel>Пароль</FormLabel>
+                <FormControl>
+                  <Input 
+                    type="password"
+                    placeholder="Введите пароль" 
+                    {...field} 
+                    className={`${form.formState.errors.password && 'border-sky-600'}`}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        {form.formState.errors.root && (
+            <p className="text-red text-sm mb-4 text-center">
+              {form.formState.errors.root.message}
+            </p>
           )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Пароль</FormLabel>
-              <FormControl>
-                <Input placeholder="Ваш пароль" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Войти</Button>
+
+          <Button 
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            className="w-full py-2 px-4 rounded-lg text-white font-medium bg-celestial hover:bg-celestial transition-colors"
+          >
+            {form.formState.isSubmitting ? 'Вход...' : 'Войти'}
+          </Button>
       </form>
     </Form >
+    </div>
   )
 }
 
