@@ -11,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
 import {
   Pagination,
   PaginationContent,
@@ -26,12 +25,29 @@ import { MagnifyingGlassIcon as SearchIcon } from "@radix-ui/react-icons";
 import { Sidebar } from "lucide-react";
 import { SidebarHeader, SidebarProvider } from "@/components/ui/sidebar";
 import { HierarchySidebar } from "@/components/ui/sidebar-hierarchy";
+import React from 'react';
+import HierarchyComponent from "@/components/ui/HierarchyComponent";
 
 const API = 'http://89.111.155.239:8000/get_employees';
 const data = await fetch('http://89.111.155.239:8000/get_employees?page=1&size=20');
 const users = await data.json();
 
+interface Item {
+  ID: string;
+  Name: string;
+  Children?: Item[];
+}
+
+const itemsPerPage = 5;
+
 export default async function Page() {
+  const response = await fetch('http://89.111.155.239:8000/get_organization_tree');
+  const data: Item[] = await response.json();
+
+  const currentPage = 1; 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = data.slice(startIndex, startIndex + itemsPerPage);
+
   return (
     <div className='flex flex-col items-center mx-[30px]'>
       <div className="w-full">
@@ -69,49 +85,50 @@ export default async function Page() {
         <Button className="w-[150px] h-full text-[18px] rounded-[15px] bg-celestial text-jet border-none shadow-none hover:bg-azul">Найти</Button>
       </div>
       <div className="flex flex-row w-full h-full">
-      <Sb/>
-      <div className="w-full h-full flex flex-col">
-      <div className="w-full h-full">
-        <Table>
-          <TableHeader>
-            <TableRow className='bg-columbia'>
-              <TableHead className='rounded-tl-[15px] text-center text-jet'>ФИО</TableHead>
-              <TableHead className="text-center text-jet">Должность</TableHead>
-              <TableHead className="text-center text-jet">Почта</TableHead>
-              <TableHead className='rounded-tr-[15px] text-center text-jet'>Телефон</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {users.items.map((user: any) => (
-              <TableRow key={user.ID} >
-                <TableCell>{user.FullNameRus}</TableCell>
-                <TableCell>{user.Workplace}</TableCell>
-                <TableCell>{user.Email}</TableCell>
-                <TableCell>({user.Phone.substring(0, 2)}) {user.Phone.substring(2, 4)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <h1>Иерархия организаций</h1>
+        <HierarchyComponent data={currentItems} />
+        <div className="w-full h-full flex flex-col">
+          <div className="w-full h-full">
+            <Table>
+              <TableHeader>
+                <TableRow className='bg-columbia'>
+                  <TableHead className='rounded-tl-[15px] text-center text-jet'>ФИО</TableHead>
+                  <TableHead className="text-center text-jet">Должность</TableHead>
+                  <TableHead className="text-center text-jet">Почта</TableHead>
+                  <TableHead className='rounded-tr-[15px] text-center text-jet'>Телефон</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.items.map((user: any) => (
+                  <TableRow key={user.ID}>
+                    <TableCell>{user.FullNameRus}</TableCell>
+                    <TableCell>{user.Workplace}</TableCell>
+                    <TableCell>{user.Email}</TableCell>
+                    <TableCell>({user.Phone.substring(0, 2)}) {user.Phone.substring(2, 4)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="w-full">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href={`/home/${users.page - 1}`} className={users.page === 1 ? "pointer-events-none" : ""} />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href={`/home/${users.page}`}>
+                    {users.page}
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext href={`/home/${users.page + 1}`} className={users.page === users.pages ? "pointer-events-none" : ""} />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        </div>
       </div>
-      <div className="w-full">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href={`/home/${users.page - 1}`} className={users.page === 1 ? "pointer-events-none" : ""} />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href={`/home/${users.page}`}>
-                {users.page}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href={`/home/${users.page + 1}`} className={users.page === users.pages ? "pointer-events-none" : ""} />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
-      </div>
-      </div>
-    </div >
+    </div>
   );
 }
