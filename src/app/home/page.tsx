@@ -20,15 +20,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import Sb from '@/components/ui/sb'
 import { MagnifyingGlassIcon as SearchIcon } from "@radix-ui/react-icons";
-import { Sidebar } from "lucide-react";
-import { SidebarHeader, SidebarProvider } from "@/components/ui/sidebar";
-import { HierarchySidebar } from "@/components/ui/sidebar-hierarchy";
 import React from 'react';
 import HierarchyComponent from "@/components/ui/HierarchyComponent";
 
-const API = 'http://89.111.155.239:8000/get_employees';
 const data = await fetch('http://89.111.155.239:8000/get_employees?page=1&size=20');
 const users = await data.json();
 
@@ -84,11 +79,13 @@ export default async function Page() {
         <InputSearch type='search' icon={SearchIcon} iconProps={{ behavior: 'prepend', className: 'h-6 w-6 stroke-jet stroke-1' }} className='bg-uran rounded-[15px] w-full shadow-none border-none text-[17px]' />
         <Button className="w-[150px] h-full text-[18px] rounded-[15px] bg-celestial text-jet border-none shadow-none hover:bg-azul">Найти</Button>
       </div>
-      <div className="flex flex-row w-full h-full">
+      <div className="flex flex-row gap-5 w-full h-full">
+        <div className="flex flex-col bg-alice rounded-[15px] p-5 w-1/3">
         <h1>Иерархия организаций</h1>
         <HierarchyComponent data={currentItems} />
+        </div>
         <div className="w-full h-full flex flex-col">
-          <div className="w-full h-full">
+          <div className="w-full h-full bg-alice rounded-tl-[15px] rounded-tr-[15px]">
             <Table>
               <TableHeader>
                 <TableRow className='bg-columbia'>
