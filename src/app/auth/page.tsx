@@ -54,7 +54,7 @@ export default function Page() {
       <Form {...form}>
         <form 
           onSubmit={form.handleSubmit(onSubmit)}
-          className="bg-alice p-8 rounded-lg shadow-md w-2/3"
+          className="bg-alice p-8 rounded-lg shadow-md w-1/3"
         >
           <h2 className="text-2xl rounded-xl font-sans mb-6 text-center text-gray-700">
             Авторизация
