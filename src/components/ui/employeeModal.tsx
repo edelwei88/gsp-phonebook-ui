@@ -9,7 +9,7 @@ export default function EmployeeModal({ employee, onClose }: { employee: any, on
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="flex place-content-center w-4/5">
-                <div className="w-2/3 rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl mt-20 relative"> {/* Добавляем relative для позиционирования иконок */}
+                <div className="w-2/3 rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl mt-20 relative"> 
                     <div className="absolute top-4 right-4 flex space-x-4">
                     <button onClick={() => console.log('Редактировать')} className="text-gray-600 hover:text-gray-800">
                         <EditIcon />
@@ -31,7 +31,7 @@ export default function EmployeeModal({ employee, onClose }: { employee: any, on
                         </div>
                         <div className="px-20 py-4 text-center">
                             <h3 className="text-xl font-bold text-gray-800">{employee.FullNameRus}</h3>
-                            <div className="flex justify-start space-x-2 text-sm text-gray-500"> {/* Уменьшаем отступ и изменяем стиль текста */}
+                            <div className="flex justify-start space-x-2 text-sm text-gray-500">
                                 <p>Должность</p>
                             </div>
                         </div>
