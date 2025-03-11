@@ -1,11 +1,11 @@
-'use client'
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { check_cookies, set_cookies } from './actions';
+import { check_cookies, set_cookies } from "./actions";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
 import {
   Form,
@@ -14,24 +14,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 
-import { Input } from "@/components/ui/input"
-import { useEffect, useLayoutEffect } from 'react';
-
+import { Input } from "@/components/ui/input";
+import { useEffect, useLayoutEffect } from "react";
 
 const FormSchema = z.object({
   username: z.string().min(5, {
-    message: "Минимальная длина имени пользователя 5 символов."
+    message: "Минимальная длина имени пользователя 5 символов.",
   }),
   password: z.string().min(5, {
-    message: "Минимальная длина пароля 5 символов."
-  })
-})
-
+    message: "Минимальная длина пароля 5 символов.",
+  }),
+});
 
 export default function Page() {
-
   useLayoutEffect(() => {
     check_cookies();
   }, []);
@@ -39,8 +36,8 @@ export default function Page() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: '',
-      password: ''
+      username: "",
+      password: "",
     },
   });
 
@@ -52,7 +49,7 @@ export default function Page() {
   return (
     <div className="min-h-screen rounded-xl flex items-center justify-center bg-white">
       <Form {...form}>
-        <form 
+        <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="bg-alice p-8 rounded-lg shadow-md w-1/3"
         >
@@ -67,50 +64,49 @@ export default function Page() {
               <FormItem className="mb-4">
                 <FormLabel>Имя пользователя</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Введите логин" 
-                    {...field} 
-                    className={`${form.formState.errors.username && 'border-sky-600'}`}
+                  <Input
+                    placeholder="Введите логин"
+                    {...field}
+                    className={`${form.formState.errors.username && "border-sky-600"}`}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        <FormField
+          <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem className="mb-6">
                 <FormLabel>Пароль</FormLabel>
                 <FormControl>
-                  <Input 
+                  <Input
                     type="password"
-                    placeholder="Введите пароль" 
-                    {...field} 
-                    className={`${form.formState.errors.password && 'border-sky-600'}`}
+                    placeholder="Введите пароль"
+                    {...field}
+                    className={`${form.formState.errors.password && "border-sky-600"}`}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        {form.formState.errors.root && (
+          {form.formState.errors.root && (
             <p className="text-red text-sm mb-4 text-center">
               {form.formState.errors.root.message}
             </p>
           )}
 
-          <Button 
+          <Button
             type="submit"
             disabled={form.formState.isSubmitting}
             className="w-full py-2 px-4 rounded-lg text-white font-medium bg-celestial hover:bg-celestial transition-colors bg-black"
           >
-            {form.formState.isSubmitting ? 'Вход...' : 'Войти'}
+            {form.formState.isSubmitting ? "Вход..." : "Войти"}
           </Button>
-      </form>
-    </Form >
+        </form>
+      </Form>
     </div>
-  )
+  );
 }
-

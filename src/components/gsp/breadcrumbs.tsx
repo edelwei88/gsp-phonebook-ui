@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 
 import {
   Breadcrumb,
@@ -10,16 +10,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-} from '@/components/ui/breadcrumb';
+} from "@/components/ui/breadcrumb";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from "lucide-react";
 
 export interface BreadcrumbsItem {
   id: string;
@@ -52,7 +52,7 @@ export function Breadcrumbs(props: BreadcrumbsProps) {
             <DropdownMenuTrigger>
               <BreadcrumbEllipsis />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='start'>
+            <DropdownMenuContent align="start">
               {list.slice(1, -2).map((item) => (
                 <DropdownMenuItem key={item.id}>
                   <Link href={`/${item.id}`}>{item.name}</Link>

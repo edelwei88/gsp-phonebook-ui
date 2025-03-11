@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import {
   Table,
@@ -8,8 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {User} from '@/components/types/types'
 import EmployeeModal from "./employeeModal";
-export default function EmployeeTableWrapper({ users }: { users: any }) {
+export default function EmployeeTableWrapper({ users }: { users: User[] }) {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const handleEmployeeClick = (employee: any) => {
@@ -24,15 +25,19 @@ export default function EmployeeTableWrapper({ users }: { users: any }) {
     <>
       <Table>
         <TableHeader>
-          <TableRow className='bg-columbia'>
-            <TableHead className='rounded-tl-[15px] text-center text-jet'>ФИО</TableHead>
+          <TableRow className="bg-columbia">
+            <TableHead className="rounded-tl-[15px] text-center text-jet">
+              ФИО
+            </TableHead>
             <TableHead className="text-center text-jet">Должность</TableHead>
             <TableHead className="text-center text-jet">Почта</TableHead>
-            <TableHead className='rounded-tr-[15px] text-center text-jet'>Телефон</TableHead>
+            <TableHead className="rounded-tr-[15px] text-center text-jet">
+              Телефон
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.items.map((user: any) => (
+          {users.map((user: any) => (
             <TableRow key={user.ID}>
               <TableCell
                 className="cursor-pointer hover:underline"
@@ -42,7 +47,9 @@ export default function EmployeeTableWrapper({ users }: { users: any }) {
               </TableCell>
               <TableCell>{user.Workplace}</TableCell>
               <TableCell>{user.Email}</TableCell>
-              <TableCell>({user.Phone.substring(0, 2)}) {user.Phone.substring(2, 4)}</TableCell>
+              <TableCell>
+                ({user.Phone.substring(0, 2)}) {user.Phone.substring(2, 4)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
