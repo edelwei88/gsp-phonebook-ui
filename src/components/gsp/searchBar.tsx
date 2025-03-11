@@ -40,9 +40,9 @@ function SearchSelect({ className }: { className?: string }) {
   );
 }
 
-export function SearchBar() {
+export function SearchBar({className}: {className: string}) {
   return (
-    <div className='relative'>
+    <div className={`relative ${className}`}>
       <Search className='absolute left-2 top-2.5 h-4 w-4 text-muted-foreground' />
       <Input
         placeholder='Поиск'
