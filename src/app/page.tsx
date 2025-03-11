@@ -1,4 +1,5 @@
 import { Breadcrumbs } from '@/components/gsp/breadcrumbs';
+import { SearchBar } from '@/components/gsp/searchBar';
 import type {
   BreadcrumbsProps,
   BreadcrumbsItem,
@@ -27,5 +28,10 @@ const test: BreadcrumbsItem[] = [
   },
 ];
 export default function Home() {
-  return <Breadcrumbs breadcrumbs={test} />;
+  return (
+    <div>
+      <Breadcrumbs breadcrumbs={test} />
+      <SearchBar />
+    </div>
+  );
 }
