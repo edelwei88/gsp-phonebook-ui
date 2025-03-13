@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Pagination as PaginationRoot,
   PaginationContent,
@@ -27,28 +28,32 @@ function generatePages(currentPage: number, maxPage: number): number[] {
 }
 
 export function Pagination(props: PaginationProps) {
+  const [currentPage, setCurrentPage] = useState<number>(props.currentPage);
+
   return (
-    <PaginationRoot className={props.className}>
+    <PaginationRoot>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
             onClick={() => {
-              props.pageClickHandler(props.currentPage - 1);
+              setCurrentPage(currentPage - 1);
+              props.pageClickHandler(currentPage - 1);
             }}
-            isActive={props.currentPage > 1 ? true : false}
+            isActive={currentPage > 1 ? true : false}
             className={
-              props.currentPage === 1 ? "pointer-events-none opacity-50" : ""
+              currentPage === 1 ? "pointer-events-none opacity-50" : ""
             }
           />
         </PaginationItem>
 
-        {generatePages(props.currentPage, props.maxPage).map((item) => (
+        {generatePages(currentPage, props.maxPage).map((item) => (
           <PaginationItem key={item}>
             <PaginationLink
               onClick={() => {
+                setCurrentPage(item);
                 props.pageClickHandler(item);
               }}
-              className={props.currentPage == item ? "font-bold" : ""}
+              className={currentPage == item ? "font-bold" : ""}
             >
               {item}
             </PaginationLink>
@@ -58,11 +63,12 @@ export function Pagination(props: PaginationProps) {
         <PaginationItem>
           <PaginationNext
             onClick={() => {
-              props.pageClickHandler(props.currentPage + 1);
+              setCurrentPage(currentPage + 1);
+              props.pageClickHandler(currentPage + 1);
             }}
-            isActive={props.currentPage === props.maxPage ? false : true}
+            isActive={currentPage === props.maxPage ? false : true}
             className={
-              props.currentPage === props.maxPage
+              currentPage === props.maxPage
                 ? "pointer-events-none opacity-50"
                 : ""
             }

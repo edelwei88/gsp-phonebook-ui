@@ -4,6 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-alice: #e6f1fa;
+  --color-uran: #a3d3f5;
+  --color-columbia: #b1c4d1;
+  --color-azul: #086eb6;
+  --color-celestial: #4e9ad0;
+  --color-jet: #333333;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -44,14 +53,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-@theme {
-  --color-alice: #e6f1fa;
-  --color-uran: #a3d3f5;
-  --color-columbia: #b1c4d1;
-  --color-azul: #086eb6;
-  --color-celestial: #4e9ad0;
-  --color-jet: #333333;
-}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

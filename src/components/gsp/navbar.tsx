@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Logo from "@/components/gsp/Logo";
-import QuestionMark from "@/components/gsp/QuestionMark";
-import ThemeChanger from "./ThemeChanger";
-import Logout from "./Logout";
+import Logo from "@/components/gsp/svg/Logo";
+import QuestionMark from "@/components/gsp/svg/QuestionMark";
+import ThemeChanger from "@/components/gsp/svg/ThemeChanger";
+import Logout from "@/components/gsp/svg/Logout";
 import Link from "next/link";
 
 function questionMarkClickHandle() {}
