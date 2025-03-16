@@ -1,6 +1,6 @@
 export const dynamic = "force-static";
 
-import { Item } from "@/components/gsp/hierarchy";
+import { Item } from "@/lib/types/hierarchy";
 
 interface Tree {
   ID: string;
@@ -29,7 +29,6 @@ function processData(arr: Tree[]): Item[] {
     result.push({
       id: item.ID,
       name: item.Name,
-      opened: false,
       children: item.Children.length === 0 ? [] : processData(item.Children),
     });
   });

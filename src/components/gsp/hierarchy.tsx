@@ -1,126 +1,133 @@
 "use client";
 
-import { ChevronRight, ChevronDown } from "lucide-react";
-import { useContext, useState, useEffect } from "react";
-import { AppContext } from "../context/appContext";
+import { useState, useContext, useEffect } from "react";
 import { ContextType } from "@/lib/types/context";
+import { AppContext } from "@/components/context/appContext";
+import { Item } from "@/lib/types/hierarchy";
+import { IValue } from "@/lib/types/context";
 
-export interface Item {
-  id: string;
-  name: string;
-  opened: boolean;
-  children: Item[];
-}
+import { ChevronRight, ChevronDown } from "lucide-react";
+import { BreadcrumbsItem } from "@/lib/types/breadcrumbs";
 
-function Chevron({ opened, onClick }: { opened: boolean; onClick(): void }) {
-  return (
-    <span
-      onClick={(e: React.MouseEvent<HTMLInputElement>) => {
-        onClick();
-        e.stopPropagation();
-      }}
-    >
-      {opened ? <ChevronDown /> : <ChevronRight />}
-    </span>
-  );
-}
-
-export interface HierarchyProps {
-  className?: string;
-  items?: Item[];
-}
-
-function SlaveRender({
-  items,
-  className,
-}: {
+interface SlaveProps {
   items: Item[];
+  openedIds: string[];
+  setOpenedIds: (ids: string[]) => void;
+  value: IValue;
+  setIdAndBreadcrumbs: (id: string) => void;
   className?: string;
-}) {
-  const { value, setId } = useContext(AppContext) as ContextType;
+}
 
-  if (items.length === 0) {
-    return <></>;
-  }
+function Slave(props: SlaveProps) {
+  return props.items.map((item) => (
+    <div key={item.id} className={"ml-[20px] relative " + props.className}>
+      <div className="flex items-center relative">
+        <span
+          onClick={() => {
+            if (props.openedIds.find((id) => item.id === id)) {
+              props.setOpenedIds(
+                props.openedIds.filter((el) => el !== item.id),
+              );
+            } else {
+              props.setOpenedIds([...props.openedIds, item.id]);
+            }
+          }}
+        >
+          {item.children.length > 0 &&
+            (props.openedIds.find((id) => item.id === id) ? (
+              <ChevronDown />
+            ) : (
+              <ChevronRight />
+            ))}
+        </span>
 
-  return items.map((item) => (
-    <div key={item.id} className={`ml-[20px] relative ${className}`}>
-      <div
-        onClick={() => {
-          setId(item.id);
-        }}
-        className={`
-            relative  flex  items-center select-none
-            ${item.children.length > 0 ? "cursor-pointer" : "cursor-default"}
-            ${item.id === value.selectedId ? "text-blue-400" : "text-black"}
-            `}
-      >
-        {item.children && (
-          <Chevron
-            opened={item.opened}
-            onClick={() => {
-              item.opened = !item.opened;
-            }}
-          />
-        )}
-        {item.name}
+        <span
+          onClick={() => {
+            props.setIdAndBreadcrumbs(item.id);
+          }}
+          className={
+            item.id === props.value.selectedId ? "text-blue-400" : "text-black"
+          }
+        >
+          {item.name}
+        </span>
       </div>
-      {item.children.length > 0 &&
-        item.opened &&
-        SlaveRender({ items: item.children, className })}
+      {item.children?.length > 0 &&
+        props.openedIds.find((id) => item.id === id) && (
+          <Slave {...{ ...props, items: item.children }} />
+        )}
     </div>
   ));
 }
 
+interface HierarchyProps {
+  className?: string;
+}
+
+function generateBreadcrumbs(items: Item[], id: string) {
+  const result: BreadcrumbsItem[] = [];
+
+  function recursiveSearch(items: Item[]): boolean {
+    const goal: BreadcrumbsItem | undefined = items
+      .map((item) => ({
+        id: item.id,
+        name: item.name,
+      }))
+      .find((item) => item.id === id);
+
+    if (goal !== undefined) {
+      result.unshift(goal);
+      return true;
+    }
+
+    const toProcess: Item[] = items.filter((item) => item.children.length > 0);
+
+    if (toProcess.length === 0) {
+      return false;
+    }
+
+    let toRet = false;
+    toProcess.forEach((item) => {
+      if (recursiveSearch(item.children) === true) {
+        result.unshift({
+          id: item.id,
+          name: item.name,
+        });
+        toRet = true;
+      }
+    });
+
+    return toRet;
+  }
+
+  recursiveSearch(items);
+  return result;
+}
+
 export function Hierarchy(props: HierarchyProps) {
-  const { value, setId } = useContext(AppContext) as ContextType;
-  const [items, setItems] = useState<Item[]>([]);
+  const { value, setIdAndBreadcrumbs } = useContext(AppContext) as ContextType;
+  const [allItems, setItems] = useState<Item[]>([]);
+  const [openedIds, setOpenedIds] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      if (props.items) {
-        setItems(props.items);
-        return;
-      }
       const res = await fetch("/hierarchy");
-      const data = await res.json();
+      const data: Item[] = await res.json();
       setItems(data);
     }
     fetchData();
   }, []);
 
-  if (items.length === 0) {
-    return <></>;
-  }
-
-  return items.map((item) => (
-    <div key={item.id} className={`ml-[20px] relative ${props.className}`}>
-      <div
-        className={`
-          relative  flex  items-center select-none
-          ${item.children.length > 0 ? "cursor-pointer" : "cursor-default"}
-          ${item.id === value.selectedId ? "text-blue-400" : "text-black"}
-          `}
-      >
-        {item.children && (
-          <Chevron
-            opened={item.opened}
-            onClick={() => {
-              item.opened = !item.opened;
-            }}
-          />
-        )}
-        <span
-          onClick={() => {
-            setId(item.id);
-          }}
-        >
-          {item.name}
-        </span>
-      </div>
-      {item.children.length > 0 &&
-        item.opened &&
-        Hierarchy({ items: item.children, className: props.className })}
-    </div>
-  ));
+  return (
+    <Slave
+      items={allItems}
+      openedIds={openedIds}
+      setOpenedIds={setOpenedIds}
+      setIdAndBreadcrumbs={(id: string) => {
+        setIdAndBreadcrumbs(id, generateBreadcrumbs(allItems, id));
+      }}
+      value={value}
+      className={props.className}
+    />
+  );
 }

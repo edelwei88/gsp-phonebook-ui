@@ -23,9 +23,10 @@ import {
 import { ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { useContext } from "react";
+import { BreadcrumbsItem } from "@/lib/types/breadcrumbs";
 
 export function Breadcrumbs({ className }: { className?: string }) {
-  const { value, setBreadcrumbs } = useContext(AppContext) as ContextType;
+  const { value, setIdAndBreadcrumbs } = useContext(AppContext) as ContextType;
 
   const list = value.breadcrumbs;
   const length = list.length;
@@ -42,7 +43,12 @@ export function Breadcrumbs({ className }: { className?: string }) {
             <Button
               variant="link"
               onClick={() => {
-                setBreadcrumbs(list.slice(0, 1));
+                const el = list.slice(0, 1).at(-1);
+                let id: BreadcrumbsItem | null = null;
+                if (el !== undefined) {
+                  id = el;
+                }
+                setIdAndBreadcrumbs(id ? id.id : null, list.slice(0, 1));
               }}
             >
               {list[0].name}
@@ -65,7 +71,15 @@ export function Breadcrumbs({ className }: { className?: string }) {
                   <Button
                     variant="link"
                     onClick={() => {
-                      setBreadcrumbs(list.slice(0, i + 2));
+                      const el = list.slice(0, i + 2).at(-1);
+                      let id: BreadcrumbsItem | null = null;
+                      if (el !== undefined) {
+                        id = el;
+                      }
+                      setIdAndBreadcrumbs(
+                        id ? id.id : null,
+                        list.slice(0, i + 2),
+                      );
                     }}
                   >
                     {item.name}
@@ -85,7 +99,15 @@ export function Breadcrumbs({ className }: { className?: string }) {
             <Button
               variant="link"
               onClick={() => {
-                setBreadcrumbs(list.slice(0, length - 1));
+                const el = list.slice(0, length - 1).at(-1);
+                let id: BreadcrumbsItem | null = null;
+                if (el !== undefined) {
+                  id = el;
+                }
+                setIdAndBreadcrumbs(
+                  id ? id.id : null,
+                  list.slice(0, length - 1),
+                );
               }}
             >
               {list[length - 2].name}
@@ -112,7 +134,15 @@ export function Breadcrumbs({ className }: { className?: string }) {
                 <Button
                   variant="link"
                   onClick={() => {
-                    setBreadcrumbs(list.slice(0, i + 1));
+                    const el = list.slice(0, i + 1).at(-1);
+                    let id: BreadcrumbsItem | null = null;
+                    if (el !== undefined) {
+                      id = el;
+                    }
+                    setIdAndBreadcrumbs(
+                      id ? id.id : null,
+                      list.slice(0, i + 1),
+                    );
                   }}
                 >
                   {item.name}

@@ -11,6 +11,8 @@ export interface ContextType {
   value: IValue;
   setPage: (page: number) => void;
   setMaxPage: (page: number) => void;
-  setId: (id: string | null) => void;
-  setBreadcrumbs: (breadcrumbs: BreadcrumbsItem[]) => void;
+  setIdAndBreadcrumbs: (
+    id: string | null,
+    breadcrumbs: BreadcrumbsItem[],
+  ) => void;
 }
