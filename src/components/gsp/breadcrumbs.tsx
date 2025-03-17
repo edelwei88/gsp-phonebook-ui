@@ -1,8 +1,5 @@
 "use client";
 
-import { AppContext } from "../context/appContext";
-import { ContextType } from "@/lib/types/context";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,20 +19,21 @@ import {
 
 import { ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
-import { useContext } from "react";
 import { BreadcrumbsItem } from "@/lib/types/breadcrumbs";
+import { useGlobalStore } from "@/lib/stores/globalStore";
 
 export function Breadcrumbs({ className }: { className?: string }) {
-  const { value, setIdAndBreadcrumbs } = useContext(AppContext) as ContextType;
-
-  const list = value.breadcrumbs;
+  const list = useGlobalStore((state) => state.breadcrumbs);
+  const setIdAndBreadcrumbs = useGlobalStore(
+    (state) => state.setSelectedIdAndBreadcrumbs,
+  );
   const length = list.length;
 
   if (length === 0) {
     return <></>;
   }
 
-  return value.breadcrumbs.length > 3 ? (
+  return length > 3 ? (
     <Breadcrumb className={className}>
       <BreadcrumbList>
         <BreadcrumbItem>

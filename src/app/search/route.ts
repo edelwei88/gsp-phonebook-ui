@@ -1,15 +1,15 @@
 import { User } from "@/lib/types/user";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export interface Users {
-  users: User[];
+  items: User[];
   total: number;
   page: number;
   size: number;
   pages: number;
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const searhParams = url.searchParams;
   const value = searhParams.get("value");

@@ -1,6 +1,7 @@
 export const dynamic = "force-static";
 
 import { Item } from "@/lib/types/hierarchy";
+import { NextResponse } from "next/server";
 
 interface Tree {
   ID: string;
@@ -40,5 +41,5 @@ export async function GET() {
   const res = await fetch("http://89.111.155.239:8000/get_organization_tree");
   const data: Tree[] = await res.json();
 
-  return Response.json(processData(unique(data)));
+  return NextResponse.json(processData(unique(data)));
 }

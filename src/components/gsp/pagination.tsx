@@ -8,9 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useContext } from "react";
-import { AppContext } from "../context/appContext";
-import { ContextType } from "@/lib/types/context";
+import { useGlobalStore } from "@/lib/stores/globalStore";
 
 function generatePages(currentPage: number, maxPage: number): number[] {
   const pages: number[] = [];
@@ -25,7 +23,13 @@ function generatePages(currentPage: number, maxPage: number): number[] {
 }
 
 export function Pagination({ className }: { className?: string }) {
-  const { value, setPage } = useContext(AppContext) as ContextType;
+  const page = useGlobalStore((state) => state.page);
+  const maxPage = useGlobalStore((state) => state.maxPage);
+  const setPage = useGlobalStore((state) => state.setPage);
+
+  if (maxPage === 0 || maxPage === 1) {
+    return <></>;
+  }
 
   return (
     <PaginationRoot className={className}>
@@ -33,20 +37,20 @@ export function Pagination({ className }: { className?: string }) {
         <PaginationItem>
           <PaginationPrevious
             onClick={() => {
-              setPage(value.page - 1);
+              setPage(page - 1);
             }}
-            isActive={value.page > 1 ? true : false}
-            className={value.page === 1 ? "pointer-events-none opacity-50" : ""}
+            isActive={page > 1 ? true : false}
+            className={page === 1 ? "pointer-events-none opacity-50" : ""}
           />
         </PaginationItem>
 
-        {generatePages(value.page, value.maxPage).map((item) => (
+        {generatePages(page, maxPage).map((item) => (
           <PaginationItem key={item}>
             <PaginationLink
               onClick={() => {
                 setPage(item);
               }}
-              className={value.page == item ? "font-bold" : ""}
+              className={page == item ? "font-bold" : ""}
             >
               {item}
             </PaginationLink>
@@ -56,14 +60,10 @@ export function Pagination({ className }: { className?: string }) {
         <PaginationItem>
           <PaginationNext
             onClick={() => {
-              setPage(value.page + 1);
+              setPage(page + 1);
             }}
-            isActive={value.page === value.maxPage ? false : true}
-            className={
-              value.page === value.maxPage
-                ? "pointer-events-none opacity-50"
-                : ""
-            }
+            isActive={page === maxPage ? false : true}
+            className={page === maxPage ? "pointer-events-none opacity-50" : ""}
           />
         </PaginationItem>
       </PaginationContent>
