@@ -92,25 +92,30 @@ export default function SearchBar() {
     return () => clearTimeout(delayDebounceFn);
   }, [searchValue, searchType]);
 
+  const [isFocused, setIsFocused] = useState(false);
   return (
-    <div className="w-[90%]">
+    <div className="w-full h-[50px] bg-uran rounded-[20px] dark:bg-davysgray dark:text-aliceblue transition-all duration-500 ease-in-out">
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <SearchIcon className="h-5 w-5 text-gray-400" />
+          <SearchIcon className="h-5 w-5 text-black dark:text-aliceblue" />
         </div>
         <Input
           type="search"
           placeholder="Search..."
-          className="block w-full pl-10 text-center rounded-md border border-gray-300 py-2 focus:border-primary focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+          className="block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
         <SearchSelect
-          className="border-none rounded-r-[15px] absolute right-0 top-0 h-full rounded-l-none"
+          className="border-none rounded-r-[15px] absolute right-0 top-0 h-full rounded-l-none dark:text-aliceblue transition-all duration-500 ease-in-out"
           onSelectChange={setSearchType}
         />
       </div>
-      <HintBlock users={searchResults} hasSearched={hasSearched} />
+      {isFocused && (
+        <HintBlock users={searchResults} hasSearched={hasSearched} />
+      )}
     </div>
   );
 }

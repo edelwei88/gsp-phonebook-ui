@@ -1,30 +1,33 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react"; 
 
 const ThemeChanger = () => {
-    return (
-        <svg
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-        >
-            <g clipPath='url(#clip0_3_1408)'>
-                <path
-                    d='M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z'
-                    stroke='#333333'
-                    strokeWidth='2.5'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                />
-            </g>
-            <defs>
-                <clipPath id='clip0_3_1408'>
-                    <rect width='24' height='24' fill='white' />
-                </clipPath>
-            </defs>
-        </svg>
-    );
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false); 
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const handleClick = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  return (
+    <div onClick={handleClick} className="cursor-pointer">
+      {theme === "light" ? (
+        <Sun size={24} className="text-black dark:text-aliceblue" /> 
+      ) : (
+        <Moon size={24} className="text-black dark:text-aliceblue" /> 
+      )}
+    </div>
+  );
 };
 
 export default ThemeChanger;

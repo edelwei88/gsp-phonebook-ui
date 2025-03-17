@@ -34,12 +34,12 @@ export function Table() {
   console.log(items);
   return (
     <TableRoot>
-      <TableHeader>
+      <TableHeader className="bg-columbia dark:bg-davysgray">
         <TableRow>
-          <TableHead>ФИО</TableHead>
-          <TableHead>Должность</TableHead>
-          <TableHead>Почта</TableHead>
-          <TableHead>Телефон</TableHead>
+          <TableHead className="text-white">ФИО</TableHead>
+          <TableHead className="text-white">Должность</TableHead>
+          <TableHead className="text-white">Почта</TableHead>
+          <TableHead className="text-white">Телефон</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

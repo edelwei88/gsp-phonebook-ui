@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Item } from "@/lib/types/hierarchy";
-
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight, ChevronDown, X } from "lucide-react";
 import { BreadcrumbsItem } from "@/lib/types/breadcrumbs";
 import { useGlobalStore } from "@/lib/stores/globalStore";
 
@@ -58,7 +57,7 @@ interface SlaveProps {
 
 function Slave(props: SlaveProps) {
   return props.items.map((item) => (
-    <div key={item.id} className={"ml-[20px] relative " + props.className}>
+    <div key={item.id} className={"ml-[20px] relative" + props.className}>
       <div className="flex items-center relative">
         <span
           onClick={() => {
@@ -73,9 +72,9 @@ function Slave(props: SlaveProps) {
         >
           {item.children.length > 0 &&
             (props.openedIds.find((id) => item.id === id) ? (
-              <ChevronDown />
+              <ChevronDown className="dark:text-aliceblue" />
             ) : (
-              <ChevronRight />
+              <ChevronRight className="dark:text-aliceblue"/>
             ))}
         </span>
 
@@ -84,7 +83,7 @@ function Slave(props: SlaveProps) {
             props.setSelectedIdAndBreadcrumbs(item.id);
           }}
           className={
-            item.id === props.selectedId ? "text-blue-400" : "text-black"
+            item.id === props.selectedId ? "text-blue-400 dark:text-alicblue" : "text-black dark:text-aliceblue"
           }
         >
           {item.name}
@@ -100,9 +99,11 @@ function Slave(props: SlaveProps) {
 
 interface HierarchyProps {
   className?: string;
+  isVisible: boolean; 
+  onClose: () => void;
 }
 
-export function Hierarchy(props: HierarchyProps) {
+export function Hierarchy({ className, isVisible, onClose }: HierarchyProps) {
   const selectedId = useGlobalStore((state) => state.selectedId);
   const setSelectedIdAndBreadcrumbs = useGlobalStore(
     (state) => state.setSelectedIdAndBreadcrumbs,
@@ -120,15 +121,24 @@ export function Hierarchy(props: HierarchyProps) {
   }, []);
 
   return (
-    <Slave
-      items={allItems}
-      openedIds={openedIds}
-      setOpenedIds={setOpenedIds}
-      setSelectedIdAndBreadcrumbs={(id: string) => {
-        setSelectedIdAndBreadcrumbs(id, generateBreadcrumbs(allItems, id));
-      }}
-      selectedId={selectedId}
-      className={props.className}
-    />
+    <>
+      <button
+        onClick={onClose}
+        className="absolute z-100 top-2 right-2 p-1 rounded-full hover:bg-gray-200 transition-colors"
+      >
+        <X className="h-5 w-5 text-gray-600" />
+      </button>
+
+      <Slave
+        items={allItems}
+        openedIds={openedIds}
+        setOpenedIds={setOpenedIds}
+        setSelectedIdAndBreadcrumbs={(id: string) => {
+          setSelectedIdAndBreadcrumbs(id, generateBreadcrumbs(allItems, id));
+        }}
+        selectedId={selectedId}
+        className={className}
+      />
+    </>
   );
 }

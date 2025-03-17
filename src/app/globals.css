@@ -11,6 +11,11 @@
   --color-azul: #086eb6;
   --color-celestial: #4e9ad0;
   --color-jet: #333333;
+  --color-gunmetal: #23282B;
+  --color-charcoal: #334350;
+  --color-davysgray: #5A5F65;
+  --color-onyx: #2f3438;
+  --color-aliceblue: #e2ebf2;
 }
 
 @theme inline {
@@ -91,7 +96,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: --color-gunmetal;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);

@@ -6,10 +6,6 @@ import QuestionMark from "@/components/gsp/svg/QuestionMark";
 import ThemeChanger from "@/components/gsp/svg/ThemeChanger";
 import Link from "next/link";
 
-function questionMarkClickHandle() {}
-
-function themeChangerClickHandle() {}
-
 export function Navbar({ className }: { className?: string }) {
   return (
     <header className={`flex justify-between ${className}`}>
@@ -21,14 +17,12 @@ export function Navbar({ className }: { className?: string }) {
 
       <div className="flex items-center space-x-4">
         <button
-          onClick={questionMarkClickHandle}
-          className="bg-white text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50"
+          className=" text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray"
         >
           <QuestionMark />
         </button>
         <button
-          onClick={themeChangerClickHandle}
-          className="bg-white text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50"
+          className="text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray"
         >
           <ThemeChanger />
         </button>
