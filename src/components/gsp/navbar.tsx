@@ -1,12 +1,18 @@
 "use client";
 
-import React from "react";
 import Logo from "@/components/gsp/svg/Logo";
 import QuestionMark from "@/components/gsp/svg/QuestionMark";
-import ThemeChanger from "@/components/gsp/svg/ThemeChanger";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react";
 
 export function Navbar({ className }: { className?: string }) {
+  const handleClick = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const { theme, setTheme } = useTheme();
+
   return (
     <header className={`flex justify-between ${className}`}>
       <div className="flex items-center space-x-4">
@@ -16,15 +22,18 @@ export function Navbar({ className }: { className?: string }) {
       </div>
 
       <div className="flex items-center space-x-4">
-        <button
-          className=" text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray"
-        >
+        <button className=" text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray">
           <QuestionMark />
         </button>
         <button
-          className="text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray"
+          className="text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray cursor-pointer"
+          onClick={handleClick}
         >
-          <ThemeChanger />
+          {theme === "light" ? (
+            <Sun size="24" className="text-black dark:text-aliceblue" />
+          ) : (
+            <Moon size="24" className="text-black dark:text-aliceblue" />
+          )}
         </button>
       </div>
     </header>

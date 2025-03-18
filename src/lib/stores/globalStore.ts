@@ -20,8 +20,6 @@ interface GlobalStore {
   setTotal: (total: number) => void;
   setSize: (size: number) => void;
   usingSearch: boolean;
-  theme: "light" | "dark";
-  toggleTheme: () => void;
 }
 
 export const useGlobalStore = create<GlobalStore>((set, state) => ({
@@ -68,16 +66,5 @@ export const useGlobalStore = create<GlobalStore>((set, state) => ({
     }));
   },
   usingSearch: false,
-  theme: typeof window !== "undefined" ? (localStorage.getItem("theme") === "dark" ? "dark" : "light") : "light",
-  toggleTheme: () => {
-    console.log("Тема переключается");
-    set((state) => {
-      const newTheme = state.theme === "light" ? "dark" : "light"; 
-      if (typeof window !== "undefined") {
-        localStorage.setItem("theme", newTheme);
-      }
-      console.log("Новая тема:", newTheme); 
-      return { theme: newTheme }; 
-    });
-  },
 }));
+

@@ -15,13 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
-      <body className="mx-10 mt-1">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+  <html lang="ru" suppressHydrationWarning>
+  <body className="mx-10 mt-1">
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <Navbar />
+    {children}
+    </ThemeProvider>
+  </body>
+  </html>
   );
 }

@@ -20,38 +20,38 @@ export function Table() {
   const selectedId = useGlobalStore((state) => state.selectedId);
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await fetch(
-        `/users?page=${page}&organization_id=${selectedId}`,
-      );
-      const json: Users = await data.json();
-      setItems(json.items);
-      setMaxPage(json.pages);
-    }
-    fetchData();
+  async function fetchData() {
+  const data = await fetch(
+    `/users?page=${page}&organization_id=${selectedId}`,
+  );
+  const json: Users = await data.json();
+  setItems(json.items);
+  setMaxPage(json.pages);
+  }
+  fetchData();
   }, [selectedId, page]);
 
   console.log(items);
   return (
-    <TableRoot>
-      <TableHeader className="bg-columbia dark:bg-charcoal">
-        <TableRow>
-          <TableHead className="text-white">ФИО</TableHead>
-          <TableHead className="text-white">Должность</TableHead>
-          <TableHead className="text-white">Почта</TableHead>
-          <TableHead className="text-white">Телефон</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody className="dark:bg-onyx">
-        {items.map((item) => (
-          <TableRow key={item.ID}>
-            <TableCell>{item.FullNameRus}</TableCell>
-            <TableCell>{item.Workplace}</TableCell>
-            <TableCell>{item.Email}</TableCell>
-            <TableCell>{item.Phone}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </TableRoot>
+  <TableRoot>
+  <TableHeader className="bg-columbia dark:bg-charcoal">
+    <TableRow>
+    <TableHead className="text-white">ФИО</TableHead>
+    <TableHead className="text-white">Должность</TableHead>
+    <TableHead className="text-white">Почта</TableHead>
+    <TableHead className="text-white">Телефон</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody className="dark:bg-onyx">
+    {items.map((item) => (
+    <TableRow key={item.ID}>
+    <TableCell>{item.FullNameRus}</TableCell>
+    <TableCell>{item.Workplace}</TableCell>
+    <TableCell>{item.Email}</TableCell>
+    <TableCell>{item.Phone}</TableCell>
+    </TableRow>
+    ))}
+  </TableBody>
+  </TableRoot>
   );
 }
