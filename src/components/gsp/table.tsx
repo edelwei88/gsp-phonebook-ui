@@ -34,7 +34,7 @@ export function Table() {
   console.log(items);
   return (
     <TableRoot>
-      <TableHeader className="bg-columbia dark:bg-davysgray">
+      <TableHeader className="bg-columbia dark:bg-charcoal">
         <TableRow>
           <TableHead className="text-white">ФИО</TableHead>
           <TableHead className="text-white">Должность</TableHead>
@@ -42,7 +42,7 @@ export function Table() {
           <TableHead className="text-white">Телефон</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="dark:bg-onyx">
         {items.map((item) => (
           <TableRow key={item.ID}>
             <TableCell>{item.FullNameRus}</TableCell>

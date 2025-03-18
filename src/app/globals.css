@@ -15,6 +15,7 @@
   --color-charcoal: #334350;
   --color-davysgray: #5A5F65;
   --color-onyx: #2f3438;
+  --color-onyxlight: #33383D;
   --color-aliceblue: #e2ebf2;
 }
 
@@ -96,7 +97,7 @@
 }
 
 .dark {
-  --background: --color-gunmetal;
+  --background: var(--color-gunmetal);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);

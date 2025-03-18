@@ -29,7 +29,7 @@ export default function HierarchyTable() {
     <div className="flex flex-row gap-5 min-h-[75vh]">
       {isHierarchyRendered && (
         <div
-          className={`flex flex-col w-1/3 bg-alice dark:bg-charcoal p-2 rounded-[20px] relative transition-all duration-500 ease-in-out ${
+          className={`flex flex-col w-1/3 bg-alice dark:bg-onyx p-2 rounded-[15px] relative transition-all duration-500 ease-in-out ${
             isHierarchyVisible
               ? "opacity-100 translate-x-0"
               : "opacity-0 -translate-x-full"
@@ -45,7 +45,7 @@ export default function HierarchyTable() {
         </div>
       )}
 
-      <div className="flex flex-col w-full bg-alice dark:bg-charcoal dark:text-aliceblue rounded-[20px] overflow-hidden transition-all duration-500 ease-in-out">
+      <div className="flex flex-col w-full bg-alice dark:bg-onyx dark:text-aliceblue rounded-[15px] overflow-hidden transition-all duration-500 ease-in-out">
         <Table />
         <Pagination className="my-3" />
       </div>
@@ -53,7 +53,7 @@ export default function HierarchyTable() {
       {!isHierarchyRendered && (
         <button
           onClick={handleShowHierarchy}
-          className="fixed top-[50%] left-[-5px] p-2 bg-blue-500 text-white rounded-r-[20px] transition-all duration-500 ease-in-out"
+          className="fixed top-[50%] left-[-5px] p-2 bg-blue-500 text-white rounded-r-[15px] transition-all duration-500 ease-in-out"
         >
           <ChevronRight className="transition-all duration-500 ease-in-out"/>
         </button>
