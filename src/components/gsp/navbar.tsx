@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Logo from "@/components/gsp/svg/Logo";
 import QuestionMark from "@/components/gsp/svg/QuestionMark";
 import Link from "next/link";
@@ -7,11 +8,20 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 export function Navbar({ className }: { className?: string }) {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  const { theme, setTheme } = useTheme();
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header className={`flex justify-between ${className}`}>

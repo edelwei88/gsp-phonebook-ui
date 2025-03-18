@@ -97,13 +97,8 @@ function Slave(props: SlaveProps) {
   ));
 }
 
-interface HierarchyProps {
-  className?: string;
-  isVisible: boolean; 
-  onClose: () => void;
-}
 
-export function Hierarchy({ className, isVisible, onClose }: HierarchyProps) {
+export function Hierarchy() {
   const selectedId = useGlobalStore((state) => state.selectedId);
   const setSelectedIdAndBreadcrumbs = useGlobalStore(
   (state) => state.setSelectedIdAndBreadcrumbs,
@@ -122,13 +117,6 @@ export function Hierarchy({ className, isVisible, onClose }: HierarchyProps) {
 
   return (
   <>
-  <button
-    onClick={onClose}
-    className="absolute z-100 top-2 right-2 p-1 rounded-full hover:bg-gray-200 "
-  >
-    <X className="h-5 w-5 text-gray-600" />
-  </button>
-
   <Slave
     items={allItems}
     openedIds={openedIds}
@@ -137,7 +125,6 @@ export function Hierarchy({ className, isVisible, onClose }: HierarchyProps) {
     setSelectedIdAndBreadcrumbs(id, generateBreadcrumbs(allItems, id));
     }}
     selectedId={selectedId}
-    className={className}
   />
   </>
   );
