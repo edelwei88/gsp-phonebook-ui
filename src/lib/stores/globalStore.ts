@@ -22,7 +22,7 @@ interface GlobalStore {
   usingSearch: boolean;
 }
 
-export const useGlobalStore = create<GlobalStore>((set, state) => ({
+export const useGlobalStore = create<GlobalStore>((set) => ({
   page: 1,
   maxPage: 625,
   selectedId: null,
@@ -49,7 +49,7 @@ export const useGlobalStore = create<GlobalStore>((set, state) => ({
   },
   items: [],
   total: 0,
-  size: 16,
+  size: 10,
   setItems: (items) => {
     set(() => ({
       items: items,
@@ -67,4 +67,3 @@ export const useGlobalStore = create<GlobalStore>((set, state) => ({
   },
   usingSearch: false,
 }));
-

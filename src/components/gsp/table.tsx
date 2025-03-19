@@ -8,50 +8,98 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalStore } from "@/lib/stores/globalStore";
 import { Users } from "@/app/search/route";
+import { User } from "@/lib/types/user";
+import { BriefcaseMedicalIcon } from "lucide-react";
+import EmployeeModal from "./employeeModal";
 
 export function Table() {
   const items = useGlobalStore((state) => state.items);
   const setItems = useGlobalStore((state) => state.setItems);
   const page = useGlobalStore((state) => state.page);
   const setMaxPage = useGlobalStore((state) => state.setMaxPage);
+  const size = useGlobalStore((state) => state.size);
   const selectedId = useGlobalStore((state) => state.selectedId);
+  const breadcrumbs = useGlobalStore((state) => state.breadcrumbs);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   useEffect(() => {
-  async function fetchData() {
-  const data = await fetch(
-    `/users?page=${page}&organization_id=${selectedId}`,
-  );
-  const json: Users = await data.json();
-  setItems(json.items);
-  setMaxPage(json.pages);
-  }
-  fetchData();
+    async function fetchData() {
+      let data;
+      if (breadcrumbs.length === 1) {
+        data = await fetch(
+          `/users?page=${page}&organization_id=${selectedId}&size=${size}`,
+        );
+      } else if (breadcrumbs.length > 1) {
+        data = await fetch(
+          `/users?page=${page}&organization_id=${breadcrumbs[0].id}&department_id=${selectedId}&size=${size}`,
+        );
+      } else {
+        data = await fetch(`/users?page=${page}&size=${size}`);
+      }
+      const json: Users = await data.json();
+      setItems(json.items);
+      setMaxPage(json.pages);
+    }
+    fetchData();
+    console.log("Rerendered");
   }, [selectedId, page]);
 
-  console.log(items);
   return (
-  <TableRoot>
-  <TableHeader className="bg-columbia dark:bg-charcoal">
-    <TableRow>
-    <TableHead className="text-white">ФИО</TableHead>
-    <TableHead className="text-white">Должность</TableHead>
-    <TableHead className="text-white">Почта</TableHead>
-    <TableHead className="text-white">Телефон</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody className="dark:bg-onyx">
-    {items.map((item) => (
-    <TableRow key={item.ID}>
-    <TableCell>{item.FullNameRus}</TableCell>
-    <TableCell>{item.Workplace}</TableCell>
-    <TableCell>{item.Email}</TableCell>
-    <TableCell>{item.Phone}</TableCell>
-    </TableRow>
-    ))}
-  </TableBody>
-  </TableRoot>
+    <>
+      <TableRoot>
+        <TableHeader className="text-center bg-columbia dark:bg-charcoal">
+          <TableRow className="text-center">
+            <TableHead className="text-white">ФИО</TableHead>
+            <TableHead className="text-white">Должность</TableHead>
+            <TableHead className="text-white">Почта</TableHead>
+            <TableHead className="text-white">Телефон</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="dark:bg-onyx">
+          {items.map((item) => (
+            <TableRow
+              className="select-none cursor-pointer"
+              key={item.ID}
+              onClick={() => {
+                setSelectedUser(item);
+              }}
+            >
+              <TableCell className="flex flex-row justify-between items-center">
+                {item.Photo.length > 0 ? (
+                  <img
+                    alt="photo"
+                    className="w-12 h-12 ml-12"
+                    src={"data:image/jpg;base64," + item.Photo}
+                  />
+                ) : (
+                  <img
+                    alt="photo"
+                    className="w-12 h-12 ml-12"
+                    src="https://global.discourse-cdn.com/turtlehead/original/2X/c/c830d1dee245de3c851f0f88b6c57c83c69f3ace.png"
+                  />
+                )}
+                <span className="justify-self-center">{item.FullNameRus}</span>
+                <div>{item.Boleet === 1 && <BriefcaseMedicalIcon />}</div>
+              </TableCell>
+              <TableCell>{item.Workplace}</TableCell>
+              <TableCell>{item.Email}</TableCell>
+              <TableCell>{item.Phone}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </TableRoot>
+
+      {selectedUser !== null && (
+        <EmployeeModal
+          employee={selectedUser}
+          onClose={() => {
+            setSelectedUser(null);
+          }}
+        />
+      )}
+    </>
   );
 }

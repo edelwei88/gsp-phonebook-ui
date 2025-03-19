@@ -26,38 +26,39 @@ export default function HierarchyTable() {
     if (hierarchyRef.current && buttonRef.current) {
       hierarchyRef.current.classList.toggle("hidden");
       isVisible.current = !isVisible.current;
-      
+
       if (isVisible.current) {
         buttonRef.current.innerHTML = chevronLeftSVG;
       } else {
         buttonRef.current.innerHTML = chevronRightSVG;
       }
-
     }
   };
 
   return (
-    <div className="flex flex-row gap-5 min-h-[75vh]">
+    <div className="flex flex-row gap-5 h-[75vh]">
       <div
         ref={hierarchyRef}
-        className="flex flex-col w-1/3 bg-alice dark:bg-onyx p-2 rounded-[15px] transition-all duration-300 ease-in-out"
+        className="flex flex-col overflow-y-auto h-[75vh] w-1/3 bg-alice dark:bg-onyx p-2 rounded-[15px]"
       >
         <Hierarchy />
       </div>
 
-      <div
-        className="flex flex-col w-full bg-alice dark:bg-onyx dark:text-aliceblue rounded-[15px] overflow-hidden ease-in-out transition-all duration-300 w-2/3"
-      >
+      <div className="flex flex-col bg-alice dark:bg-onyx dark:text-aliceblue rounded-[15px] overflow-y-auto w-full">
         <Table />
-        <Pagination className="my-3" />
+        <Pagination className="mt-auto mb-3" />
       </div>
 
       <button
         ref={buttonRef}
         onClick={handleToggleHierarchy}
-        className="fixed top-[50%] left-[-5px] p-2 bg-blue-500 text-white rounded-r-[15px] transition-all duration-300 ease-in-out"
+        className="fixed top-[50%] left-[-5px] p-2 bg-blue-500 text-white rounded-r-[15px]"
       >
-        <div dangerouslySetInnerHTML={{ __html: isVisible.current ? chevronLeftSVG : chevronRightSVG }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: isVisible.current ? chevronLeftSVG : chevronRightSVG,
+          }}
+        />
       </button>
     </div>
   );

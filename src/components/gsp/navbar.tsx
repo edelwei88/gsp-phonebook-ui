@@ -6,14 +6,18 @@ import QuestionMark from "@/components/gsp/svg/QuestionMark";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
+import HelpModal from "./helpModal";
 
 export function Navbar({ className }: { className?: string }) {
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+  const openHelpModal = () => setIsHelpModalOpen(true);
+  const closeHelpModal = () => setIsHelpModalOpen(false);
 
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -32,7 +36,10 @@ export function Navbar({ className }: { className?: string }) {
       </div>
 
       <div className="flex items-center space-x-4">
-        <button className=" text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray">
+        <button
+          className=" text-blue-600 px-4 py-2 rounded-[35px] hover:bg-blue-50 dark:hover:bg-davysgray"
+          onClick={openHelpModal}
+        >
           <QuestionMark />
         </button>
         <button
@@ -46,6 +53,8 @@ export function Navbar({ className }: { className?: string }) {
           )}
         </button>
       </div>
+      <HelpModal isOpen={isHelpModalOpen} onClose={closeHelpModal} />
     </header>
   );
 }
+

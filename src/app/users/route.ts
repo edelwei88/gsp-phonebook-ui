@@ -4,7 +4,6 @@ import { Users } from "../search/route";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
-  searchParams.append("size", "16");
   if (searchParams.get("organization_id") == "null") {
     searchParams.delete("organization_id");
   }

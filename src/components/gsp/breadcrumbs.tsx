@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Breadcrumb,
@@ -8,155 +8,141 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-} from "@/components/ui/breadcrumb";
+} from '@/components/ui/breadcrumb';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
-import { ChevronRight } from "lucide-react";
-import { Button } from "../ui/button";
-import { BreadcrumbsItem } from "@/lib/types/breadcrumbs";
-import { useGlobalStore } from "@/lib/stores/globalStore";
+import { Button } from '@/components/ui/button';
+
+import { ChevronRight } from 'lucide-react';
+
+import { useGlobalStore } from '@/lib/stores/globalStore';
+import { BREADCRUMBS } from '@/lib/globalConsts/breadcrumbs';
+import { Fragment, ReactNode } from 'react';
+import { cn } from '@/lib/utils';
+
+function StyledSpan({
+  children,
+  className,
+  onClick,
+}: {
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+}) {
+  return (
+    <span
+      onClick={onClick}
+      className={cn('cursor-pointer select-none', className)}>
+      {children}
+    </span>
+  );
+}
 
 export function Breadcrumbs({ className }: { className?: string }) {
-  const list = useGlobalStore((state) => state.breadcrumbs);
-  const setIdAndBreadcrumbs = useGlobalStore(
-  (state) => state.setSelectedIdAndBreadcrumbs,
+  const breadcrumbs = useGlobalStore(state => state.breadcrumbs);
+  const length = breadcrumbs.length;
+  const setSelectedIdAndBreadcrumbs = useGlobalStore(
+    state => state.setSelectedIdAndBreadcrumbs,
   );
-  const length = list.length;
 
-  if (length === 0) {
-  return <></>;
+  function clickHandler(id: string | undefined, elementIndex: number) {
+    const idToSet = id === undefined ? null : id;
+    setSelectedIdAndBreadcrumbs(
+      idToSet,
+      breadcrumbs.slice(0, elementIndex + 1),
+    );
   }
 
-  return length > 3 ? (
-  <Breadcrumb className={className}>
-  <BreadcrumbList>
-    <BreadcrumbItem>
-    <BreadcrumbLink asChild>
-    <Button
-      variant="link"
-      onClick={() => {
-      const el = list.slice(0, 1).at(-1);
-      let id: BreadcrumbsItem | null = null;
-      if (el !== undefined) {
-      id = el;
-      }
-      setIdAndBreadcrumbs(id ? id.id : null, list.slice(0, 1));
-      }}
-    >
-      {list[0].name}
-    </Button>
-    </BreadcrumbLink>
-    </BreadcrumbItem>
+  if (length === 0) {
+    return;
+  }
 
-    <BreadcrumbSeparator>
-    <ChevronRight />
-    </BreadcrumbSeparator>
+  return length > BREADCRUMBS.THRESHOLD ? (
+    <Breadcrumb className={className}>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <StyledSpan onClick={() => clickHandler(breadcrumbs[0].id, 0)}>
+              {breadcrumbs[0].name}
+            </StyledSpan>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
 
-    <BreadcrumbItem>
-    <DropdownMenu>
-    <DropdownMenuTrigger>
-      <BreadcrumbEllipsis />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="start">
-      {list.slice(1, -2).map((item, i) => (
-      <DropdownMenuItem key={item.id}>
-      <Button
-        variant="link"
-        onClick={() => {
-        const el = list.slice(0, i + 2).at(-1);
-        let id: BreadcrumbsItem | null = null;
-        if (el !== undefined) {
-        id = el;
-        }
-        setIdAndBreadcrumbs(
-        id ? id.id : null,
-        list.slice(0, i + 2),
-        );
-        }}
-      >
-        {item.name}
-      </Button>
-      </DropdownMenuItem>
-      ))}
-    </DropdownMenuContent>
-    </DropdownMenu>
-    </BreadcrumbItem>
+        <BreadcrumbSeparator>
+          <ChevronRight />
+        </BreadcrumbSeparator>
 
-    <BreadcrumbSeparator>
-    <ChevronRight />
-    </BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger className='cursor-pointer dark:hover:text-white hover:text-black'>
+              <BreadcrumbEllipsis />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='start'>
+              {breadcrumbs.slice(1, -2).map((item, i) => (
+                <DropdownMenuItem
+                  className='cursor-pointer'
+                  key={item.id}
+                  onClick={() => clickHandler(breadcrumbs[i + 1].id, i + 1)}>
+                  <StyledSpan>{item.name}</StyledSpan>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbItem>
 
-    <BreadcrumbItem>
-    <BreadcrumbLink asChild>
-    <Button
-      variant="link"
-      onClick={() => {
-      const el = list.slice(0, length - 1).at(-1);
-      let id: BreadcrumbsItem | null = null;
-      if (el !== undefined) {
-      id = el;
-      }
-      setIdAndBreadcrumbs(
-      id ? id.id : null,
-      list.slice(0, length - 1),
-      );
-      }}
-    >
-      {list[length - 2].name}
-    </Button>
-    </BreadcrumbLink>
-    </BreadcrumbItem>
+        <BreadcrumbSeparator>
+          <ChevronRight />
+        </BreadcrumbSeparator>
 
-    <BreadcrumbSeparator>
-    <ChevronRight />
-    </BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <StyledSpan
+              onClick={() => clickHandler(breadcrumbs.at(-2)?.id, length - 2)}>
+              {breadcrumbs[length - 2].name}
+            </StyledSpan>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
 
-    <BreadcrumbItem>
-    <BreadcrumbPage>{list[length - 1].name}</BreadcrumbPage>
-    </BreadcrumbItem>
-  </BreadcrumbList>
-  </Breadcrumb>
+        <BreadcrumbSeparator>
+          <ChevronRight />
+        </BreadcrumbSeparator>
+
+        <BreadcrumbItem>
+          <BreadcrumbPage>
+            <span>{breadcrumbs[length - 1].name}</span>
+          </BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
   ) : (
-  <Breadcrumb>
-  <BreadcrumbList>
-    {list.slice(0, -1).map((item, i) => (
-    <div key={item.id} className="inline-flex items-center">
-    <BreadcrumbItem key={item.id}>
-      <BreadcrumbLink asChild>
-      <Button
-      variant="link"
-      onClick={() => {
-        const el = list.slice(0, i + 1).at(-1);
-        let id: BreadcrumbsItem | null = null;
-        if (el !== undefined) {
-        id = el;
-        }
-        setIdAndBreadcrumbs(
-        id ? id.id : null,
-        list.slice(0, i + 1),
-        );
-      }}
-      >
-      {item.name}
-      </Button>
-      </BreadcrumbLink>
-    </BreadcrumbItem>
+    <Breadcrumb>
+      <BreadcrumbList>
+        {breadcrumbs.slice(0, -1).map((item, i) => (
+          <Fragment key={item.id}>
+            <BreadcrumbItem key={item.id}>
+              <BreadcrumbLink asChild>
+                <StyledSpan onClick={() => clickHandler(breadcrumbs[i].id, i)}>
+                  {item.name}
+                </StyledSpan>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
 
-    <BreadcrumbSeparator>
-      <ChevronRight />
-    </BreadcrumbSeparator>
-    </div>
-    ))}
-    <BreadcrumbItem>
-    <BreadcrumbPage>{list[length - 1].name}</BreadcrumbPage>
-    </BreadcrumbItem>
-  </BreadcrumbList>
-  </Breadcrumb>
+            <BreadcrumbSeparator>
+              <ChevronRight />
+            </BreadcrumbSeparator>
+          </Fragment>
+        ))}
+
+        <BreadcrumbItem>
+          <BreadcrumbPage>{breadcrumbs[length - 1].name}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }
