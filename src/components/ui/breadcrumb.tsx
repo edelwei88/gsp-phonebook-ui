@@ -25,7 +25,7 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
   return (
     <li
       data-slot='breadcrumb-item'
-      className={cn('inline-flex items-center gap-1.5', className)}
+      className={cn('inline-flex items-center gap-1.5 text-lg', className)}
       {...props}
     />
   );
@@ -90,7 +90,7 @@ function BreadcrumbEllipsis({
       aria-hidden='true'
       className={cn('flex items-center justify-center', className)}
       {...props}>
-      <MoreHorizontal className='size-4' />
+      <MoreHorizontal className='size-6' />
       <span className='sr-only'>More</span>
     </span>
   );
