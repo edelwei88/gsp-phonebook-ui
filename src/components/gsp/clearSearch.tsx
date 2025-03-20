@@ -2,16 +2,14 @@
 import { X } from 'lucide-react';
 import { useGlobalStore } from '@/lib/stores/globalStore';
 
-export function ClearSelection() {
-  const setSelectedIdAndBreadcrumbs = useGlobalStore(
-    state => state.setSelectedIdAndBreadcrumbs,
-  );
+export function ClearSearch() {
+  const setSearchData = useGlobalStore(state => state.setSearchData);
   const setPage = useGlobalStore(state => state.setPage);
   return (
     <div
       className='cursor-pointer flex justify-center items-center size-6 '
       onClick={() => {
-        setSelectedIdAndBreadcrumbs(null, []);
+        setSearchData({ attribute: '', value: '' });
         setPage(1);
       }}>
       <X />

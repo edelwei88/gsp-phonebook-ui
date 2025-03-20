@@ -1,5 +1,5 @@
-import { User } from "@/lib/types/user";
-import { NextRequest, NextResponse } from "next/server";
+import { User } from '@/lib/types/user';
+import { NextRequest, NextResponse } from 'next/server';
 
 export interface Users {
   items: User[];
@@ -10,14 +10,10 @@ export interface Users {
 }
 
 export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const searhParams = url.searchParams;
-  const value = searhParams.get("value");
-  const attribute = searhParams.get("attribute");
-  const size = 16;
+  const url = request.nextUrl.searchParams;
 
   const response = await fetch(
-    `http://89.111.155.239:8000/search?attribute=${attribute}&value=${value}&size=${size}`,
+    `http://89.111.155.239:8000/search?${url.toString()}`,
   );
   const data = (await response.json()) as Users;
 

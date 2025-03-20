@@ -24,8 +24,11 @@ interface GlobalStore {
   setSelectedUser: (user: User | null) => void;
   isSearching: boolean;
   setIsSearching: (flag: boolean) => void;
-  searchURI: string;
-  setSearchURI: (uri: string) => void;
+  searchData: {
+    attribute: string;
+    value: string;
+  };
+  setSearchData: (av: { attribute: string; value: string }) => void;
 }
 
 export const useGlobalStore = create<GlobalStore>(set => ({
@@ -84,10 +87,13 @@ export const useGlobalStore = create<GlobalStore>(set => ({
       isSearching: flag,
     }));
   },
-  searchURI: '',
-  setSearchURI: uri => {
+  searchData: {
+    attribute: '',
+    value: '',
+  },
+  setSearchData: av => {
     set(() => ({
-      searchURI: uri,
+      searchData: av,
     }));
   },
 }));

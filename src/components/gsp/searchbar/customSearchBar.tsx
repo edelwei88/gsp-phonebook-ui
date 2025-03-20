@@ -11,6 +11,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { User } from '@/lib/types/user';
 import HintBlock from './hintBlock';
+import { Button } from '@/components/ui/button';
+import { useGlobalStore } from '@/lib/stores/globalStore';
 
 function SearchSelect({
   className,
@@ -60,11 +62,16 @@ function SearchIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function SearchBar() {
+export default function CustomSearchBar() {
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState('name');
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const setSearchData = useGlobalStore(state => state.setSearchData);
+  const setSelectedIdAndBreadcrumbs = useGlobalStore(
+    state => state.setSelectedIdAndBreadcrumbs,
+  );
+  const setPage = useGlobalStore(state => state.setPage);
 
   const handleSearch = async () => {
     if (!searchValue) {
@@ -91,31 +98,48 @@ export default function SearchBar() {
 
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <div className='w-full h-[50px] bg-uran rounded-[15px] dark:bg-davysgray dark:text-aliceblue ease-in-out'>
-      <div className='relative'>
-        <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
-          <SearchIcon className='h-5 w-5 text-black dark:text-aliceblue' />
+    <>
+      <div className='flex flex-col w-7/8'>
+        <div className='w-full h-[50px] bg-uran rounded-[15px] dark:bg-davysgray dark:text-aliceblue ease-in-out'>
+          <div className='relative'>
+            <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
+              <SearchIcon className='h-5 w-5 text-black dark:text-aliceblue' />
+            </div>
+            <Input
+              type='search'
+              className='block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none'
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={e => {
+                setIsFocused(false);
+              }}
+            />
+            <SearchSelect
+              className='border-none rounded-r-[15px] absolute right-0 top-0 h-full rounded-l-none dark:text-aliceblue ease-in-out'
+              onSelectChange={setSearchType}
+            />
+          </div>
+          <div className='relative'>
+            {isFocused && (
+              <HintBlock users={searchResults} hasSearched={hasSearched} />
+            )}
+          </div>
         </div>
-        <Input
-          type='search'
-          className='block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none'
-          value={searchValue}
-          onChange={e => setSearchValue(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={e => {
-            setIsFocused(false);
+      </div>
+      <div className='flex flex-col w-1/8'>
+        <Button
+          onClick={() => {
+            setSearchData({
+              attribute: searchType,
+              value: searchValue,
+            });
+            setSelectedIdAndBreadcrumbs(null, []);
           }}
-        />
-        <SearchSelect
-          className='border-none rounded-r-[15px] absolute right-0 top-0 h-full rounded-l-none dark:text-aliceblue ease-in-out'
-          onSelectChange={setSearchType}
-        />
+          className='bg-azul text-white cursor-pointer w-full h-[50px] rounded-[15px] hover:bg-uran hover:text-black dark:bg-azul dark:text-aliceblue'>
+          Найти
+        </Button>
       </div>
-      <div className='relative'>
-        {isFocused && (
-          <HintBlock users={searchResults} hasSearched={hasSearched} />
-        )}
-      </div>
-    </div>
+    </>
   );
 }

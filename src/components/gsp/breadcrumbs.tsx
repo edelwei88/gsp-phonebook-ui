@@ -24,6 +24,7 @@ import { BREADCRUMBS } from '@/lib/globalConsts/breadcrumbs';
 import { Fragment, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { ClearSelection } from './clearSelection';
+import { ClearSearch } from './clearSearch';
 
 function StyledSpan({
   children,
@@ -49,12 +50,22 @@ export function Breadcrumbs({ className }: { className?: string }) {
   const setSelectedIdAndBreadcrumbs = useGlobalStore(
     state => state.setSelectedIdAndBreadcrumbs,
   );
+  const searchData = useGlobalStore(state => state.searchData);
 
   function clickHandler(id: string | undefined, elementIndex: number) {
     const idToSet = id === undefined ? null : id;
     setSelectedIdAndBreadcrumbs(
       idToSet,
       breadcrumbs.slice(0, elementIndex + 1),
+    );
+  }
+
+  if (searchData.attribute !== '' && searchData.value !== '') {
+    return (
+      <div className='flex flex-row justify-between mb-3 bg-alice text-foreground dark:bg-charcoal dark:text-aliceblue rounded-[15px] p-5 items-center'>
+        <span>Поиск</span>
+        <ClearSearch />
+      </div>
     );
   }
 

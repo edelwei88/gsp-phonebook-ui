@@ -22,9 +22,10 @@ export function Table() {
   const breadcrumbs = useGlobalStore(state => state.breadcrumbs);
   const selectedUser = useGlobalStore(state => state.selectedUser);
   const setSelectedUser = useGlobalStore(state => state.setSelectedUser);
+  const searchData = useGlobalStore(state => state.searchData);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchDataHierarchy() {
       let data;
       if (breadcrumbs.length === 1) {
         data = await fetch(
@@ -41,9 +42,21 @@ export function Table() {
       setItems(json.items);
       setMaxPage(json.pages);
     }
-    fetchData();
-    console.log('Rerendered');
-  }, [selectedId, page]);
+    async function fetchDataSearch() {
+      let data;
+      data = await fetch(
+        `/search?attribute=${searchData.attribute}&value=${searchData.value}&page=${page}&size=${size}`,
+      );
+      const json: Users = await data.json();
+      setItems(json.items);
+      setMaxPage(json.pages);
+    }
+    if (searchData.attribute === '' || searchData.value === '') {
+      fetchDataHierarchy();
+    } else {
+      fetchDataSearch();
+    }
+  }, [selectedId, page, searchData.attribute, searchData.value]);
 
   return (
     <>
@@ -85,9 +98,13 @@ export function Table() {
                     {item.FullNameRus}
                   </span>
                 </div>
-                <div>{item.Boleet === 1 && <BriefcaseMedicalIcon />}</div>
+                <div className='mr-12'>
+                  {item.Boleet === 1 && (
+                    <BriefcaseMedicalIcon className='ml-12' />
+                  )}
+                </div>
               </TableCell>
-              <TableCell>{item.Workplace}</TableCell>
+              <TableCell className='text-center'>{item.Workplace}</TableCell>
               <TableCell className='text-right'>{item.Email}</TableCell>
               <TableCell className='text-right pr-15'>{item.Phone}</TableCell>
             </TableRow>
