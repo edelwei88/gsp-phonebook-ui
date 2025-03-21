@@ -49,6 +49,7 @@ interface SlaveProps {
   setOpenedIds: (ids: string[]) => void;
   setSelectedIdAndBreadcrumbs: (id: string) => void;
   className?: string;
+  setSearchData: () => void;
 }
 
 function Slave(props: SlaveProps) {
@@ -74,7 +75,8 @@ function Slave(props: SlaveProps) {
 
         <span
           onClick={() => {
-            props.setSelectedIdAndBreadcrumbs(item.id);
+            props.setSelectedIdAndBreadcrumbs(item.id)
+            props.setSearchData();
           }}
           className={cn(
             item.id === props.selectedId
@@ -100,6 +102,7 @@ export function Hierarchy() {
   );
   const [allItems, setAllItems] = useState<Item[]>([]);
   const [openedIds, setOpenedIds] = useState<string[]>([]);
+  const setSearchData = useGlobalStore(state => state.setSearchData);
 
   useEffect(() => {
     async function fetchData() {
@@ -120,6 +123,9 @@ export function Hierarchy() {
           setSelectedIdAndBreadcrumbs(id, generateBreadcrumbs(allItems, id));
         }}
         selectedId={selectedId}
+        setSearchData={() => {
+        setSearchData({attribute: "", value: ""})
+        }}
       />
     </div>
   );

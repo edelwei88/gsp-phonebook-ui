@@ -71,7 +71,6 @@ export default function CustomSearchBar() {
   const setSelectedIdAndBreadcrumbs = useGlobalStore(
     state => state.setSelectedIdAndBreadcrumbs,
   );
-  const setPage = useGlobalStore(state => state.setPage);
 
   const handleSearch = async () => {
     if (!searchValue) {
@@ -111,7 +110,7 @@ export default function CustomSearchBar() {
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
               onFocus={() => setIsFocused(true)}
-              onBlur={e => {
+              onBlur={() => {
                 setIsFocused(false);
               }}
             />

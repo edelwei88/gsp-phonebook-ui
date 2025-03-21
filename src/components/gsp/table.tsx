@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useGlobalStore } from '@/lib/stores/globalStore';
 import { Users } from '@/app/search/route';
 import { BriefcaseMedicalIcon } from 'lucide-react';
@@ -43,8 +43,7 @@ export function Table() {
       setMaxPage(json.pages);
     }
     async function fetchDataSearch() {
-      let data;
-      data = await fetch(
+      const data = await fetch(
         `/search?attribute=${searchData.attribute}&value=${searchData.value}&page=${page}&size=${size}`,
       );
       const json: Users = await data.json();

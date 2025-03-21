@@ -1,11 +1,12 @@
 'use client';
+import { User } from '@/lib/types/user';
 import { SaveAll, TrashIcon, X } from 'lucide-react';
 import { useState } from 'react';
 export default function EditEmployeeModal({
   employee,
   onClose,
 }: {
-  employee: any;
+  employee: User;
   onClose: () => void;
 }) {
   const [code, setCode] = useState('');

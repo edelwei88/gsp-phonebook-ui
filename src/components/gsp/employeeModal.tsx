@@ -5,12 +5,13 @@ import useFindPath from './use-findPath';
 import ModalHeader from './modalHeader';
 import EditEmployeeModal from './editEmployeeModal';
 import { ChevronUp, Pencil, X } from 'lucide-react';
+import { User } from '@/lib/types/user';
 
 export default function EmployeeModal({
   employee,
   onClose,
 }: {
-  employee: any;
+  employee: User;
   onClose: () => void;
 }) {
   const [orgTree, setOrgTree] = useState([]);
@@ -82,7 +83,7 @@ export default function EmployeeModal({
               />
               <EmployeeInfo
                 label='Префикс'
-                value={employee.Boolet}
+                value={employee.Boleet.toString()}
                 isCopy={false}
               />
               <EmployeeInfo label='Городской номер' value='' isCopy={false} />
@@ -124,7 +125,7 @@ export default function EmployeeModal({
                 <div className='text-lg font-bold'>
                   Оргструктура подразделения
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col max-h-[20vh] overflow-auto'>
                   {isLoading ? (
                     <div>"Загрузка..." </div>
                   ) : (

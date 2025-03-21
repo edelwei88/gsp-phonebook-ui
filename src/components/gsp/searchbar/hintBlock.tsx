@@ -1,7 +1,6 @@
 'use client';
 import { useGlobalStore } from '@/lib/stores/globalStore';
 import { User } from '@/lib/types/user';
-import { set } from 'react-hook-form';
 
 interface HintBlockProps {
   users: User[];
@@ -57,7 +56,7 @@ export default function HintBlock({ users, hasSearched }: HintBlockProps) {
         <div className='w-full bg-white border-solid h-[1px]'></div>
         {users.map(user => (
           <div
-            onMouseDown={(e: React.MouseEvent) => {
+            onMouseDown={() => {
               setSelectedUser(user);
             }}
             key={user.ID}

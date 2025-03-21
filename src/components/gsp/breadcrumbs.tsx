@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { ChevronRight, Dot, Circle } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import { useGlobalStore } from '@/lib/stores/globalStore';
 import { BREADCRUMBS } from '@/lib/globalConsts/breadcrumbs';

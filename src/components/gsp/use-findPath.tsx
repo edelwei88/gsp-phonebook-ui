@@ -3,7 +3,7 @@ import { useMemo } from "react";
 export default function useFindPath(tree: any[], targetId: string): string[] {
     return useMemo(() => {
         const findPath = (tree: any[], targetId: string, currentPath: string[] = []): string[] | null => {
-            for (let node of tree) {
+            for (const node of tree) {
                 if (node.ID === targetId) {
                     return [...currentPath, node.Name];
                 }
