@@ -4,6 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-alice: #e6f1fa;
+  --color-uran: #a3d3f5;
+  --color-columbia: #b1c4d1;
+  --color-azul: #086eb6;
+  --color-celestial: #4e9ad0;
+  --color-jet: #333333;
+  --color-gunmetal: #23282b;
+  --color-charcoal: #334350;
+  --color-davysgray: #5a5f65;
+  --color-onyx: #2f3438;
+  --color-onyxlight: #33383d;
+  --color-aliceblue: #e2ebf2;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -44,14 +59,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-@theme {
-  --color-alice: #e6f1fa;
-  --color-uran: #a3d3f5;
-  --color-columbia: #b1c4d1;
-  --color-azul: #086eb6;
-  --color-celestial: #4e9ad0;
-  --color-jet: #333333;
-}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -86,10 +94,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --tw-duration: 100ms;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: var(--color-gunmetal);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);

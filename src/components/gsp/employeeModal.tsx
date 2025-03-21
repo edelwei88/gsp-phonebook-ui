@@ -1,9 +1,10 @@
-"use client";
-import { useState } from "react";
-import Image from "next/image";
-import CloseIcon from "../gsp/Close";
-import EditIcon from "../gsp/Edit";
-import CopyIcon from "../gsp/Copy";
+'use client';
+import { Fragment, useEffect, useState } from 'react';
+import EmployeeInfo from './employeeInfo';
+import useFindPath from './use-findPath';
+import ModalHeader from './modalHeader';
+import EditEmployeeModal from './editEmployeeModal';
+import { ChevronUp, Pencil, X } from 'lucide-react';
 
 export default function EmployeeModal({
   employee,
@@ -12,115 +13,144 @@ export default function EmployeeModal({
   employee: any;
   onClose: () => void;
 }) {
+  const [orgTree, setOrgTree] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const departmentPath = useFindPath(orgTree, employee.DepartmentID);
+
+  function handleBackDropClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target == e.currentTarget) {
+      onClose();
+    }
+  }
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch('/api/get_organization_tree')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setOrgTree(data);
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке данных:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleEditClick = () => {
+    setIsEditModalOpen(true);
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="flex place-content-center w-4/5">
-        <div className="w-2/3 rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl mt-20 relative">
-          <div className="absolute top-4 right-4 flex space-x-4">
-            <button
-              onClick={() => console.log("Редактировать")}
-              className="text-gray-600 hover:text-gray-800"
-            >
-              <EditIcon />
+    <Fragment>
+      <div
+        className='fixed bg-onyx opacity-75 inset-0 z-40 pointer-events-auto'
+        onClick={handleBackDropClick}></div>
+
+      <div className='fixed inset-0 flex items-center justify-center z-50 overscroll-none pointer-events-none'>
+        <div className='w-1/3 rounded-xl bg-white dark:bg-onyxlight border-1 border-azul shadow-lg transition-all duration-300 hover:shadow-xl relative pointer-events-auto'>
+          <div className='absolute top-4 right-4 flex space-x-4'>
+            <button onClick={handleEditClick} className='cursor-pointer'>
+              <Pencil />
             </button>
-            <button
-              onClick={onClose}
-              className="text-gray-600 hover:text-gray-800"
-            >
-              <CloseIcon />
+            <button onClick={onClose} className='cursor-pointer'>
+              <X />
             </button>
           </div>
 
-          <div className="flex p-6 justify-start bg-alice rounded-t-xl">
-            <div className="relative h-20 w-20 ml-10 overflow-hidden rounded-full border-4 border-gray-400">
-              <Image
-                src="/"
-                alt="Фото"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full"
+          <ModalHeader employee={employee} />
+
+          <div className='px-5 py-2 ml-10 mr-10'>
+            <div className='flex flex-col space-y-2'>
+              <EmployeeInfo
+                label='Организация'
+                value={employee.DepartmentID}
+                isCopy={false}
+              />
+              <EmployeeInfo
+                label='Подразделение'
+                value={employee.OrganizationID}
+                isCopy={false}
+              />
+              <EmployeeInfo
+                label='Префикс'
+                value={employee.Boolet}
+                isCopy={false}
+              />
+              <EmployeeInfo label='Городской номер' value='' isCopy={false} />
+              <EmployeeInfo
+                label='Мобильный (рабочий)'
+                value={employee.Phone}
+                isCopy={false}
+              />
+              <EmployeeInfo
+                label='Мобильный (личный)'
+                value={employee.Mobile}
+                isCopy={true}
+              />
+              <EmployeeInfo
+                label='E-mail'
+                value={employee.Email}
+                isCopy={true}
+              />
+              <EmployeeInfo
+                label='Рабочее место'
+                value={employee.Workplace}
+                isCopy={false}
+              />
+              <EmployeeInfo
+                label='Адрес'
+                value={employee.Address}
+                isCopy={false}
               />
             </div>
-            <div className="px-20 py-4 text-center">
-              <h3 className="text-xl font-bold text-gray-800">
-                {employee.FullNameRus}
-              </h3>
-              <div className="flex justify-start space-x-2 text-sm text-gray-500">
-                <p>Должность</p>
-              </div>
-            </div>
           </div>
 
-          <div className="px-5 py-4 m-10">
-            <div className="flex flex-col space-y-4">
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">Организация</h3>
-                <p className="text-gray-600">{employee.DepartmentID}</p>
+          <div className='px-5 py-4'>
+            <div className='flex justify-between space-x-5'>
+              <div className='flex-1 text-center border-t-2 border-gray-300 pt-2'>
+                <div className='text-lg font-bold'>Оргструктура сотрудника</div>
+                <div></div>
               </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">
-                  Подразделение
-                </h3>
-                <p className="text-gray-600">{employee.OrganizationID}</p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">Префикс</h3>
-                <p className="text-gray-600">{employee.Boolet}</p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">
-                  Городской номер
-                </h3>
-                <p className="text-gray-600"></p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">
-                  Мобильный (рабочий)
-                </h3>
-                <p className="text-gray-600">{employee.Phone}</p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">
-                  Мобильный (личный)
-                </h3>
-                <div className="flex items-center space-x-2">
-                  <p className="text-gray-600">{employee.Mobile}</p>
-                  <button>
-                    <CopyIcon />
-                  </button>
+              <div className='flex-1 text-center border-t-2 border-gray-300 pt-2'>
+                <div className='text-lg font-bold'>
+                  Оргструктура подразделения
                 </div>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">E-mail</h3>
-                <div className="flex items-center space-x-2">
-                  <p className="text-gray-600">{employee.Email}</p>
-                  <button>
-                    <CopyIcon />
-                  </button>
+                <div className='flex flex-col'>
+                  {isLoading ? (
+                    <div>"Загрузка..." </div>
+                  ) : (
+                    departmentPath.map((item, index, arr) => (
+                      <div
+                        key={index}
+                        className='text-gray-600 dark:text-aliceblue'>
+                        <div className='flex flex-col justify-center items-center'>
+                          <span>{item}</span>
+                          {index !== arr.length - 1 && <ChevronUp />}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">
-                  Рабочее место
-                </h3>
-                <p className="text-gray-600">{employee.Workplace}</p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-lg font-bold text-gray-800">Адрес</h3>
-                <p className="text-gray-600">{employee.Address}</p>
               </div>
             </div>
           </div>
         </div>
+        {isEditModalOpen && (
+          <EditEmployeeModal
+            employee={employee}
+            onClose={() => setIsEditModalOpen(false)}
+          />
+        )}
       </div>
-    </div>
+    </Fragment>
   );
 }
