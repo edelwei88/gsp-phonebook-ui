@@ -74,7 +74,9 @@ export function Breadcrumbs({ className }: { className?: string }) {
   }
 
   return length > BREADCRUMBS.THRESHOLD ? (
-    <div className='flex flex-row justify-between mb-3 bg-alice text-foreground dark:bg-charcoal dark:text-aliceblue rounded-[15px] p-5 items-center'>
+    <div
+      className='flex flex-row justify-between mb-3 bg-alice text-foreground dark:bg-charcoal dark:text-aliceblue rounded-[15px] p-5 items-center'
+      data-testid='breadcrumbs'>
       <Breadcrumb className={className}>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -139,7 +141,9 @@ export function Breadcrumbs({ className }: { className?: string }) {
       <ClearSelection />
     </div>
   ) : (
-    <div className='flex flex-row justify-between mb-3 bg-alice text-foreground dark:bg-charcoal dark:text-aliceblue rounded-[15px] p-5 items-center'>
+    <div
+      className='flex flex-row justify-between mb-3 bg-alice text-foreground dark:bg-charcoal dark:text-aliceblue rounded-[15px] p-5 items-center'
+      data-testid='breadcrumbs'>
       <Breadcrumb>
         <BreadcrumbList>
           {breadcrumbs.slice(0, -1).map((item, i) => (

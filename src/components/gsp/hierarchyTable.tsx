@@ -39,7 +39,8 @@ export default function HierarchyTable() {
     <div className='flex flex-row gap-5 h-[75vh]'>
       <div
         ref={hierarchyRef}
-        className='flex flex-col overflow-y-auto h-[75vh] w-1/3 bg-alice dark:bg-onyx p-2 rounded-[15px]'>
+        className='flex flex-col overflow-y-auto h-[75vh] w-1/3 bg-alice dark:bg-onyx p-2 rounded-[15px]'
+        data-testid='hierarchy'>
         <Hierarchy />
       </div>
 

@@ -98,7 +98,7 @@ export default function CustomSearchBar() {
   const [isFocused, setIsFocused] = useState(false);
   return (
     <>
-      <div className='flex flex-col w-7/8'>
+      <div className='flex flex-col w-7/8' data-testid='search'>
         <div className='w-full h-[50px] bg-uran rounded-[15px] dark:bg-davysgray dark:text-aliceblue ease-in-out'>
           <div className='relative'>
             <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>

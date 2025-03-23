@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Pagination as PaginationRoot,
@@ -7,8 +7,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { useGlobalStore } from "@/lib/stores/globalStore";
+} from '@/components/ui/pagination';
+import { useGlobalStore } from '@/lib/stores/globalStore';
 
 function generatePages(currentPage: number, maxPage: number): number[] {
   const pages: number[] = [];
@@ -23,16 +23,16 @@ function generatePages(currentPage: number, maxPage: number): number[] {
 }
 
 export function Pagination({ className }: { className?: string }) {
-  const page = useGlobalStore((state) => state.page);
-  const maxPage = useGlobalStore((state) => state.maxPage);
-  const setPage = useGlobalStore((state) => state.setPage);
+  const page = useGlobalStore(state => state.page);
+  const maxPage = useGlobalStore(state => state.maxPage);
+  const setPage = useGlobalStore(state => state.setPage);
 
   if (maxPage === 0 || maxPage === 1) {
     return <></>;
   }
 
   return (
-    <PaginationRoot className={className}>
+    <PaginationRoot className={className} data-testid='pagination'>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -40,18 +40,17 @@ export function Pagination({ className }: { className?: string }) {
               setPage(page - 1);
             }}
             isActive={page > 1 ? true : false}
-            className={page === 1 ? "pointer-events-none opacity-50" : ""}
+            className={page === 1 ? 'pointer-events-none opacity-50' : ''}
           />
         </PaginationItem>
 
-        {generatePages(page, maxPage).map((item) => (
+        {generatePages(page, maxPage).map(item => (
           <PaginationItem key={item}>
             <PaginationLink
               onClick={() => {
                 setPage(item);
               }}
-              className={page == item ? "font-bold" : ""}
-            >
+              className={page == item ? 'font-bold' : ''}>
               {item}
             </PaginationLink>
           </PaginationItem>
@@ -63,7 +62,7 @@ export function Pagination({ className }: { className?: string }) {
               setPage(page + 1);
             }}
             isActive={page === maxPage ? false : true}
-            className={page === maxPage ? "pointer-events-none opacity-50" : ""}
+            className={page === maxPage ? 'pointer-events-none opacity-50' : ''}
           />
         </PaginationItem>
       </PaginationContent>

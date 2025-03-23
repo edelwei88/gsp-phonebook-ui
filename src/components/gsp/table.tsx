@@ -59,7 +59,7 @@ export function Table() {
 
   return (
     <>
-      <TableRoot>
+      <TableRoot data-testid='table'>
         <TableHeader className='text-center bg-columbia dark:bg-charcoal'>
           <TableRow>
             <TableHead className='text-white text-left pl-14'>ФИО</TableHead>
