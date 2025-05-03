@@ -41,7 +41,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       <Breadcrumb>
         <BreadcrumbList>
           {items.map((value, index) => (
-            <Fragment>
+            <Fragment key={value.id}>
               {index !== 0 && <BreadcrumbSeparator />}
               <BreadcrumbItem
                 item={value}
