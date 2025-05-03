@@ -1,12 +1,20 @@
-// app/layout.tsx
-import type { Metadata } from "next";
-import { Navbar } from "@/components/gsp/navbar";
-import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
-  title: "GSP Phonebook",
-  description: "Phonebook",
+  title: 'GSP Phone Book',
+  description: 'Телефонная книга ГСП',
 };
 
 export default function RootLayout({
@@ -15,12 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
-      <body className="mx-10 mt-1">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          {children}
-        </ThemeProvider>
+    <html lang='en'>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
       </body>
     </html>
   );
