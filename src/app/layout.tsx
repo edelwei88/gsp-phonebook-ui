@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from 'next-themes';
+import { Navbar } from '@/components/navbar/Navbar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -13,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'GSP Phone Book',
+  title: 'Телефонный справочник ГСП',
   description: 'Телефонная книга ГСП',
 };
 
@@ -23,10 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='ru' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased mx-10 mt-1`}>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,0 +1,98 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
+import { SearchSelect } from '@/components/searchbar/SearchSelect';
+import Hint from '@/components/searchbar/Hint';
+import { Button } from '@/components/ui/button';
+
+import { useGlobalStore } from '@/stores/global-store';
+
+import { searchUsers } from '@/api/search';
+import { User } from '@/types/api/user';
+import Image from 'next/image';
+
+type SearchType = 'name' | 'phone' | 'email';
+
+export default function SearchBar() {
+  const [searchValue, setSearchValue] = useState('');
+  const [searchType, setSearchType] = useState<SearchType>('name');
+  const [searchResults, setSearchResults] = useState<User[]>([]);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const setSearchData = useGlobalStore(state => state.setSearchData);
+  const setSelectedIdAndBreadcrumbs = useGlobalStore(
+    state => state.setSelectedIdAndBreadcrumbs,
+  );
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      const performSearch = async () => {
+        if (!searchValue) {
+          setSearchResults([]);
+          setHasSearched(false);
+          return;
+        }
+
+        const results = await searchUsers(searchType, searchValue);
+        setSearchResults(results);
+        setHasSearched(true);
+      };
+
+      performSearch();
+    }, 200);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchValue, searchType]);
+
+  const handleSearchSubmit = () => {
+    setSearchData({
+      attribute: searchType,
+      value: searchValue,
+    });
+    setSelectedIdAndBreadcrumbs(null, []);
+  };
+
+  return (
+    <div className='flex gap-2 w-full'>
+      <div className='flex-1'>
+        <div className='h-[50px] rounded-[15px] bg-card ease-in-out'>
+          <div className='relative'>
+            <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
+              <Image
+                src='svgs/SearchIcon.svg'
+                height={25}
+                width={25}
+                alt='Иконка поиска'
+              />
+            </div>
+            <input
+              type='search'
+              className='pr-25 block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none bg-transparent'
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholder='Поиск...'
+            />
+            <SearchSelect
+              classname='bg-input border-none rounded-r-[15px] absolute right-0 top-0 rounded-l-none ease-in-out'
+              onSelectChange={setSearchType}
+            />
+          </div>
+          {isFocused && (
+            <div className='relative'>
+              <Hint users={searchResults} hasSearched={hasSearched} />
+            </div>
+          )}
+        </div>
+      </div>
+      <Button
+        onClick={handleSearchSubmit}
+        className='cursor-pointer h-[50px] rounded-[15px]'>
+        Найти
+      </Button>
+    </div>
+  );
+}

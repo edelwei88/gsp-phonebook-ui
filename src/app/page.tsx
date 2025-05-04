@@ -1,4 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumbs/wrapper';
+import SearchBar from '@/components/searchbar/SearchBar';
+import { SidebarDemo } from '@/components/sidebar/Sidebar';
 import { Item } from '@/types/components/breadcrumbs';
 
 const testData: Item[] = [
@@ -36,5 +38,13 @@ const testData: Item[] = [
   },
 ];
 export default function Page() {
-  return <Breadcrumbs items={testData} />;
+  return (
+    <div className=''>
+      <Breadcrumbs items={testData} />
+      <SearchBar />
+      <div className='my-5'>
+        <SidebarDemo />
+      </div>
+    </div>
+  );
 }
