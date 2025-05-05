@@ -13,7 +13,7 @@ const HintBlockContent = ({ users }: { users: User[] }) => {
         <HeaderCell>Email</HeaderCell>
         <HeaderCell>Телефон</HeaderCell>
       </div>
-      <div className='w-full bg-gray-200 h-px dark:bg-gray-700' />
+      <div className='w-full bg-card' />
       {users.map(user => (
         <UserRow
           key={user.ID}
@@ -37,8 +37,8 @@ const UserRow = ({ user, onClick }: { user: User; onClick: () => void }) => (
     className='cursor-pointer px-4 py-2 flex flex-row justify-around text-center items-center 
                hover:bg-gray-100/50 dark:hover:bg-onyx/50 transition-colors duration-200'>
     <Cell className='font-medium'>{user.FullNameRus}</Cell>
-    <Cell className='text-gray-600 dark:text-aliceblue'>{user.Email}</Cell>
-    <Cell className='text-gray-600 dark:text-aliceblue'>{user.Phone}</Cell>
+    <Cell className='text-foreground'>{user.Email}</Cell>
+    <Cell className='text-foreground'>{user.Phone}</Cell>
   </div>
 );
 
@@ -79,7 +79,7 @@ export function HintBlock({ users, hasSearched }: HintProps) {
 const HintContainer = ({ children }: { children: React.ReactNode }) => (
   <div
     className='mt-2 max-h-[333px] overflow-y-auto rounded-md border border-gray-300 
-               bg-white/50 shadow-lg dark:border-gray-700 dark:bg-onyx/50 backdrop-blur-sm 
+               bg-card shadow-lg dark:border-gray-700 backdrop-blur-sm 
                absolute z-60 w-full dark:text-aliceblue ease-in-out transition-all'
     style={{
       top: '100%',

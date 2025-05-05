@@ -16,7 +16,7 @@ export function SearchSelect({ classname, onSelectChange }: SearchSelectProps) {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
+        <SelectGroup className='text-foreground'>
           <SelectItem value='name'>ФИО</SelectItem>
           <SelectItem value='phone'>Телефон</SelectItem>
           <SelectItem value='email'>E-mail</SelectItem>

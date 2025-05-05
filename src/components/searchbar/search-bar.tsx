@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import { SearchSelect } from '@/components/searchbar/search-select';
-import { HintBlock } from '@/components/searchbar/hint';
+import { HintBlock } from '@/components/searchbar/Hint';
 import { Button } from '@/components/ui/button';
 
 import { useGlobalStore } from '@/stores/global-store';
@@ -72,7 +72,7 @@ export function SearchBar() {
               placeholder='Поиск...'
             />
             <SearchSelect
-              classname='bg-input border-none rounded-r-[15px] absolute right-0 top-0 rounded-l-none ease-in-out'
+              classname='bg-inputborder-none rounded-r-[15px] absolute right-0 top-0 rounded-l-none ease-in-out'
               onSelectChange={setSearchType}
             />
           </div>
