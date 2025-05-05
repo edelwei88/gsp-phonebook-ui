@@ -2,7 +2,7 @@ import { User } from '../api/user';
 
 type SearchSelectProps = {
   classname?: string;
-  onSelectChange: (value: 'name' | 'phone' | 'email') => void;
+  onSelectChange(value: 'name' | 'phone' | 'email'): void;
 };
 
 type HintProps = {
