@@ -1,21 +1,21 @@
 import { TreeItem } from '@/types/api/tree-item';
 
-interface HierarchyItemProps {
-  item: TreeItem;
-  isSelected: boolean;
-  isOpened: boolean;
-  hasChildren: boolean;
-  onToggle(): void;
-  onSelect(): void;
-}
-
-type HierarchyListProps = {
-  items: TreeItem[];
-  selectedId: string | null;
-  openedIds: string[];
-  onToggleItem(id: string): void;
-  onSelectItem(id: string): void;
-  className?: string;
+type HierarchyItem = {
+  id: string;
+  name: string;
 };
 
-export type { HierarchyItemProps, HierarchyListProps };
+type HierarchyItemProps = {
+  item: HierarchyItem;
+  selected: boolean;
+  opened: boolean;
+  parent: boolean;
+  onClick(): void;
+  onToggle(): void;
+};
+
+type HierarchyProps = {
+  items: TreeItem[];
+};
+
+export type { HierarchyItem, HierarchyItemProps, HierarchyProps };

@@ -1,23 +1,22 @@
 'use client';
 
-import { ChevronRight, ChevronDown } from 'lucide-react';
-
-import { cn } from '@/lib/utils';
 import { HierarchyItemProps } from '@/types/components/hierarchy';
+import { ChevronRight, ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-export default function HierarchyItem({
+export function HierarchyItem({
   item,
-  isSelected,
-  isOpened,
-  hasChildren,
+  selected = false,
+  opened = false,
+  parent = false,
+  onClick,
   onToggle,
-  onSelect,
 }: HierarchyItemProps) {
   return (
     <div className='flex items-center relative'>
       <div className='size-7' onClick={onToggle}>
-        {hasChildren &&
-          (isOpened ? (
+        {parent &&
+          (opened ? (
             <ChevronDown className='cursor-pointer dark:text-aliceblue' />
           ) : (
             <ChevronRight className='dark:text-aliceblue cursor-pointer' />
@@ -25,14 +24,14 @@ export default function HierarchyItem({
       </div>
 
       <span
-        onClick={onSelect}
+        onClick={onClick}
         className={cn(
-          isSelected
+          selected
             ? 'text-blue-400 select-none'
             : 'text-freground dark:text-aliceblue select-none cursor-pointer',
           'text-lg',
         )}>
-        {item.Name}
+        {item.name}
       </span>
     </div>
   );

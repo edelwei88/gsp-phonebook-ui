@@ -6,7 +6,7 @@ const defaultInitState: HierarchyState = {
   openedIds: [],
 };
 
-export const createBreadcrumbsStore = create<HierarchyStore>(set => ({
+export const createHierarchyStore = create<HierarchyStore>(set => ({
   ...defaultInitState,
   assignSelectedId: id =>
     set(() => ({

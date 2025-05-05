@@ -1,5 +1,5 @@
 'use client';
-import { DropdownMenuProps } from '@/types/components/breadcrumbs';
+import { BreadcrumbsProps } from '@/types/components/breadcrumbs';
 import { BreadcrumbItem, BreadcrumbEllipsis } from '@/components/ui/breadcrumb';
 import {
   DropdownMenu as DropdownMenuPlain,
@@ -8,9 +8,8 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '../ui/button';
-// import { setActiveBreadcrumb } from '@/stores/mock';
 
-export function DropdownMenu({ items }: DropdownMenuProps) {
+export function DropdownMenu({ items }: BreadcrumbsProps) {
   if (items.length === 0) return null;
 
   return (

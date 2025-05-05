@@ -8,17 +8,8 @@ type BreadcrumbItemProps = {
   active: boolean;
 };
 
-type DropdownMenuProps = {
-  items: BreadcrumbsItem[];
-};
-
 type BreadcrumbsProps = {
   items: BreadcrumbsItem[];
 };
 
-export type {
-  BreadcrumbItemProps,
-  DropdownMenuProps,
-  BreadcrumbsProps,
-  BreadcrumbsItem,
-};
+export type { BreadcrumbItemProps, BreadcrumbsProps, BreadcrumbsItem };
