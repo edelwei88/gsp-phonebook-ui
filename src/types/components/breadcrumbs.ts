@@ -1,19 +1,24 @@
-type Item = {
+type BreadcrumbsItem = {
   id: string;
   name: string;
 };
 
 type BreadcrumbItemProps = {
-  item: Item;
+  item: BreadcrumbsItem;
   active?: boolean;
 };
 
 type DropdownMenuProps = {
-  items: Item[];
+  items: BreadcrumbsItem[];
 };
 
 type BreadcrumbsProps = {
-  items: Item[];
+  items: BreadcrumbsItem[];
 };
 
-export type { BreadcrumbItemProps, DropdownMenuProps, BreadcrumbsProps, Item };
+export type {
+  BreadcrumbItemProps,
+  DropdownMenuProps,
+  BreadcrumbsProps,
+  BreadcrumbsItem,
+};

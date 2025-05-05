@@ -1,5 +1,5 @@
 type User = {
-  index: number;
+  Index: number;
   ID: string;
   FullNameRus: string;
   DepartmentID: string;
@@ -13,4 +13,12 @@ type User = {
   Workplace: string;
 };
 
-export type { User };
+type EmployeesResponse = {
+  items: User[];
+  total: number;
+  page: number;
+  size: number;
+  pages: number;
+};
+
+export type { User, EmployeesResponse };

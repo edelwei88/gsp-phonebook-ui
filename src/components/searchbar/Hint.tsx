@@ -2,7 +2,7 @@
 import { useGlobalStore } from '@/stores/global-store';
 import { User } from '@/types/api/user';
 import { memo } from 'react';
-import { HintProps } from '@/types/components/searchbar';
+import { HintProps } from '@/types/components/search-bar';
 
 const HintBlockContent = ({ users }: { users: User[] }) => {
   const setSelectedUser = useGlobalStore(state => state.setSelectedUser);

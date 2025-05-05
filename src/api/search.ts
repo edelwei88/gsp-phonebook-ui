@@ -1,30 +1,32 @@
-import { ADDR } from '@/consts/api';
-import { User } from '@/types/api/user';
+import { API } from '@/consts/api';
+import { EmployeesResponse, User } from '@/types/api/user';
+import { checkSearchAttribute } from '@/lib/check-search-attribute';
 
-export const searchUsers = async (
-  attribute: string,
+export async function Search(
   value: string,
-): Promise<User[]> => {
-  if (!value.trim()) return [];
+  attribute: string,
+): Promise<EmployeesResponse> {
+  if (!checkSearchAttribute(attribute)) throw new Error('Wrong parameters');
 
-  try {
-    const response = await fetch(
-      `${ADDR}search?attribute=${encodeURIComponent(attribute)}&value=${encodeURIComponent(value)}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const queryParams = new URLSearchParams();
+  queryParams.append('value', value);
+  queryParams.append('attribute', attribute);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+  const response = await fetch(
+    API.ADDR + API.ENDPOINTS.search + '?' + queryParams.toString(),
+    requestOptions,
+  );
 
-    const result = await response.json();
-    return result.items?.slice(0, 10) || [];
-  } catch (error) {
-    console.error('Search error:', error);
-    return [];
-  }
-};
+  if (!response.ok)
+    throw new Error('Status code: ' + response.status.toString());
+
+  const json: EmployeesResponse = await response.json();
+
+  return json;
+}

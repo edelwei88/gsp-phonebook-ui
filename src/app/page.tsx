@@ -1,9 +1,9 @@
 import { Breadcrumbs } from '@/components/breadcrumbs/wrapper';
-import SearchBar from '@/components/searchbar/SearchBar';
+import { SearchBar } from '@/components/searchbar/search-bar';
 import { SidebarDemo } from '@/components/sidebar/Sidebar';
-import { Item } from '@/types/components/breadcrumbs';
+import { BreadcrumbsItem } from '@/types/components/breadcrumbs';
 
-const testData: Item[] = [
+const testData: BreadcrumbsItem[] = [
   {
     id: '1',
     name: 'name1',
@@ -45,6 +45,7 @@ export default function Page() {
       <div className='my-5'>
         <SidebarDemo />
       </div>
+      <div className=''></div>
     </div>
   );
 }

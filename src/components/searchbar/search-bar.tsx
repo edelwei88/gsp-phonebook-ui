@@ -2,19 +2,19 @@
 
 import { useState, useEffect } from 'react';
 
-import { SearchSelect } from '@/components/searchbar/SearchSelect';
+import { SearchSelect } from '@/components/searchbar/search-select';
 import Hint from '@/components/searchbar/Hint';
 import { Button } from '@/components/ui/button';
 
 import { useGlobalStore } from '@/stores/global-store';
 
-import { searchUsers } from '@/api/search';
+import { Search } from '@/api/search';
 import { User } from '@/types/api/user';
-import Image from 'next/image';
+import { SearchIcon } from 'lucide-react';
 
 type SearchType = 'name' | 'phone' | 'email';
 
-export default function SearchBar() {
+export function SearchBar() {
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState<SearchType>('name');
   const [searchResults, setSearchResults] = useState<User[]>([]);
@@ -35,8 +35,8 @@ export default function SearchBar() {
           return;
         }
 
-        const results = await searchUsers(searchType, searchValue);
-        setSearchResults(results);
+        const results = await Search(searchValue, searchType);
+        setSearchResults(results.items);
         setHasSearched(true);
       };
 
@@ -60,12 +60,7 @@ export default function SearchBar() {
         <div className='h-[50px] rounded-[15px] bg-card ease-in-out'>
           <div className='relative'>
             <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
-              <Image
-                src='svgs/SearchIcon.svg'
-                height={25}
-                width={25}
-                alt='Иконка поиска'
-              />
+              <SearchIcon />
             </div>
             <input
               type='search'

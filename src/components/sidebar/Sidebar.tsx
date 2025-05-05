@@ -1,17 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { Sidebar, SidebarBody, SidebarLink } from '../ui/sidebar';
-import {
-  IconArrowLeft,
-  IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
-} from '@tabler/icons-react';
+import { Sidebar, SidebarBody } from '../ui/sidebar';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
+import Hierarchy from '../hierarchy/hierarchy';
 
 export function SidebarDemo() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <div
       className={cn(
@@ -19,41 +14,22 @@ export function SidebarDemo() {
         'min-h-[78vh]',
       )}>
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className='justify-between gap-10'>
-          <div className='flex flex-1 flex-col overflow-x-hidden overflow-y-auto'>
-            {open ? <Logo /> : <LogoIcon />}
-          </div>
+        <SidebarBody className='justify-between gap-10 py-15'>
+          <motion.div
+            animate={{
+              visibility: open ? 'visible' : 'hidden',
+              opacity: open ? 1 : 0,
+              transition: { duration: 0.2 },
+            }}
+            className='h-full'>
+            <Hierarchy />
+          </motion.div>
         </SidebarBody>
       </Sidebar>
       <Dashboard />
     </div>
   );
 }
-export const Logo = () => {
-  return (
-    <a
-      href='#'
-      className='relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black'>
-      <div className='h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white' />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className='font-medium whitespace-pre text-black dark:text-white'>
-        Организации
-      </motion.span>
-    </a>
-  );
-};
-export const LogoIcon = () => {
-  return (
-    <a
-      href='#'
-      className='relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black'>
-      <div className='h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white' />
-    </a>
-  );
-};
-
 const Dashboard = () => {
   return (
     <div className='flex flex-1'>

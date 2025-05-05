@@ -1,5 +1,5 @@
 'use client';
-import { SearchSelectProps } from '@/types/components/searchbar';
+import { SearchSelectProps } from '@/types/components/search-bar';
 import {
   Select,
   SelectContent,

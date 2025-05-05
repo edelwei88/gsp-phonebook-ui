@@ -1,17 +1,17 @@
 import { create } from 'zustand';
-import { Item } from '@/types/components/breadcrumbs';
+import { BreadcrumbItemProps } from '@/types/components/breadcrumbs';
 import { User } from '@/types/api/user';
 
 interface GlobalStore {
   page: number;
   maxPage: number;
   selectedId: string | null;
-  breadcrumbs: Item[];
+  breadcrumbs: BreadcrumbItemProps[];
   setPage: (page: number) => void;
   setMaxPage: (maxPage: number) => void;
   setSelectedIdAndBreadcrumbs: (
     selectedId: string | null,
-    breadcrumbs: Item[],
+    breadcrumbs: BreadcrumbItemProps[],
   ) => void;
   items: User[];
   total: number;
@@ -48,7 +48,7 @@ export const useGlobalStore = create<GlobalStore>(set => ({
   },
   setSelectedIdAndBreadcrumbs: (
     selectedId: string | null,
-    breadcrumbs: Item[],
+    breadcrumbs: BreadcrumbItemProps[],
   ) => {
     set(() => ({
       selectedId: selectedId,
