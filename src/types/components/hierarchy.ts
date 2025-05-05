@@ -5,16 +5,16 @@ interface HierarchyItemProps {
   isSelected: boolean;
   isOpened: boolean;
   hasChildren: boolean;
-  onToggle: () => void;
-  onSelect: () => void;
+  onToggle(): void;
+  onSelect(): void;
 }
 
 type HierarchyListProps = {
   items: TreeItem[];
   selectedId: string | null;
   openedIds: string[];
-  onToggleItem: (id: string) => void;
-  onSelectItem: (id: string) => void;
+  onToggleItem(id: string): void;
+  onSelectItem(id: string): void;
   className?: string;
 };
 

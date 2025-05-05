@@ -1,7 +1,5 @@
 import Image from 'next/image';
-
 import Link from 'next/link';
-
 import BtnHelp from '@/components/navbar/btn-help';
 import { ThemeSwitcher } from '@/components/navbar/theme-switcher';
 

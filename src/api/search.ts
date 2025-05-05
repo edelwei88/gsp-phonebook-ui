@@ -1,5 +1,5 @@
 import { API } from '@/consts/api';
-import { EmployeesResponse, User } from '@/types/api/user';
+import { EmployeesResponse } from '@/types/api/user';
 import { checkSearchAttribute } from '@/lib/check-search-attribute';
 
 export async function Search(

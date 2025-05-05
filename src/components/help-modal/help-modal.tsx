@@ -1,9 +1,9 @@
 'use client';
 
 import { X } from 'lucide-react';
+import { HELP_CONTENT } from '@/consts/help-content';
 import { memo, useCallback } from 'react';
 import { HelpModalProps } from '@/types/components/help-modal';
-import { HELP_CONTENT } from '@/consts/help-content';
 
 export default memo(function HelpModal({ isOpen, onClose }: HelpModalProps) {
   const handleBackdropClick = useCallback(

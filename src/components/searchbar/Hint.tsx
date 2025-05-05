@@ -1,7 +1,6 @@
 'use client';
 import { useGlobalStore } from '@/stores/global-store';
 import { User } from '@/types/api/user';
-import { memo } from 'react';
 import { HintProps } from '@/types/components/search-bar';
 
 const HintBlockContent = ({ users }: { users: User[] }) => {
@@ -32,17 +31,15 @@ const HeaderCell = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const UserRow = memo(
-  ({ user, onClick }: { user: User; onClick: () => void }) => (
-    <div
-      onMouseDown={onClick}
-      className='cursor-pointer px-4 py-2 flex flex-row justify-around text-center items-center 
+const UserRow = ({ user, onClick }: { user: User; onClick: () => void }) => (
+  <div
+    onMouseDown={onClick}
+    className='cursor-pointer px-4 py-2 flex flex-row justify-around text-center items-center 
                hover:bg-gray-100/50 dark:hover:bg-onyx/50 transition-colors duration-200'>
-      <Cell className='font-medium'>{user.FullNameRus}</Cell>
-      <Cell className='text-gray-600 dark:text-aliceblue'>{user.Email}</Cell>
-      <Cell className='text-gray-600 dark:text-aliceblue'>{user.Phone}</Cell>
-    </div>
-  ),
+    <Cell className='font-medium'>{user.FullNameRus}</Cell>
+    <Cell className='text-gray-600 dark:text-aliceblue'>{user.Email}</Cell>
+    <Cell className='text-gray-600 dark:text-aliceblue'>{user.Phone}</Cell>
+  </div>
 );
 
 const Cell = ({
@@ -63,7 +60,7 @@ const EmptyState = () => (
   </div>
 );
 
-export default function HintBlock({ users, hasSearched }: HintProps) {
+export function HintBlock({ users, hasSearched }: HintProps) {
   if (!users || users.length === 0) {
     return hasSearched ? (
       <HintContainer>

@@ -1,7 +1,21 @@
-import { BreadcrumbsItem } from '@/types/components/breadcrumbs';
+import { create } from 'zustand';
+import {
+  BreadcrumbsState,
+  BreadcrumbsStore,
+} from '@/types/stores/breadcrumbs-store';
 
-export interface BreadcrumbsState {
-  breadcrumbs: BreadcrumbsItem[];
-  assign: (items: BreadcrumbsItem[]) => void;
-  clear: () => void;
-}
+const defaultInitState: BreadcrumbsState = {
+  breadcrumbs: [],
+};
+
+export const createBreadcrumbsStore = create<BreadcrumbsStore>(set => ({
+  ...defaultInitState,
+  assign: items =>
+    set(() => ({
+      breadcrumbs: items,
+    })),
+  clear: () =>
+    set(() => ({
+      breadcrumbs: [],
+    })),
+}));

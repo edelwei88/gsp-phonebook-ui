@@ -5,7 +5,7 @@ type BreadcrumbsItem = {
 
 type BreadcrumbItemProps = {
   item: BreadcrumbsItem;
-  active?: boolean;
+  active: boolean;
 };
 
 type DropdownMenuProps = {

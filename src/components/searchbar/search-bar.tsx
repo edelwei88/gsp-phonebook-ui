@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import { SearchSelect } from '@/components/searchbar/search-select';
-import Hint from '@/components/searchbar/Hint';
+import { HintBlock } from '@/components/searchbar/hint';
 import { Button } from '@/components/ui/button';
 
 import { useGlobalStore } from '@/stores/global-store';
@@ -78,7 +78,7 @@ export function SearchBar() {
           </div>
           {isFocused && (
             <div className='relative'>
-              <Hint users={searchResults} hasSearched={hasSearched} />
+              <HintBlock users={searchResults} hasSearched={hasSearched} />
             </div>
           )}
         </div>
