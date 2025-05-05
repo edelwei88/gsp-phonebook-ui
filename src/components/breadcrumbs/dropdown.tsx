@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '../ui/button';
-import { setActiveBreadcrumb } from '@/stores/mock';
+// import { setActiveBreadcrumb } from '@/stores/mock';
 
 export function DropdownMenu({ items }: DropdownMenuProps) {
   if (items.length === 0) return null;
@@ -27,7 +27,7 @@ export function DropdownMenu({ items }: DropdownMenuProps) {
                 variant='link'
                 size='default'
                 onClick={() => {
-                  setActiveBreadcrumb(value.id);
+                  // setActiveBreadcrumb(value.id);
                 }}>
                 {value.name}
               </Button>

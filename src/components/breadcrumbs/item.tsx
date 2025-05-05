@@ -7,7 +7,7 @@ import {
 } from '../ui/breadcrumb';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
-import { setActiveBreadcrumb } from '@/stores/mock';
+// import { setActiveBreadcrumb } from '@/stores/mock';
 
 export function BreadcrumbItem({
   item,
@@ -23,7 +23,7 @@ export function BreadcrumbItem({
             variant='link'
             size='default'
             onClick={() => {
-              setActiveBreadcrumb(item.id);
+              // setActiveBreadcrumb(item.id);
             }}>
             {item.name}
           </Button>

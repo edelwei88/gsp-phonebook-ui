@@ -2,7 +2,7 @@ import { API } from '@/consts/api';
 import { makeUnique } from '@/lib/make-unique';
 import { TreeItem } from '@/types/api/tree-item';
 
-export const fetchHierarchy = async (): Promise<TreeItem[]> => {
+export const GetOrganizationTree = async (): Promise<TreeItem[]> => {
   const requestOptions = {
     method: 'GET',
     headers: {

@@ -6,7 +6,8 @@ import { TreeItem } from '@/types/api/tree-item';
 import { useGlobalStore } from '@/stores/global-store';
 import HierarchyList from '@/components/hierarchy/hierarchy-list';
 
-import { generateBreadcrumbs, loadHierarchyData } from '@/lib/hierarchy';
+import { generateBreadcrumbs } from '@/lib/hierarchy';
+import { GetOrganizationTree } from '@/api/get-organization-tree';
 
 export default function Hierarchy() {
   const selectedId = useGlobalStore(state => state.selectedId);
@@ -19,7 +20,7 @@ export default function Hierarchy() {
 
   useEffect(() => {
     const initializeHierarchy = async () => {
-      const { data } = await loadHierarchyData();
+      const data = await GetOrganizationTree();
       setAllItems(data);
     };
 

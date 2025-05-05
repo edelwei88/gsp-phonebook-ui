@@ -1,6 +1,5 @@
 import { TreeItem } from '@/types/api/tree-item';
 import { BreadcrumbItemProps } from '@/types/components/breadcrumbs';
-import { fetchHierarchy } from '@/api/get-organization-tree';
 
 export function generateBreadcrumbs(
   items: TreeItem[],
@@ -42,18 +41,4 @@ export function generateBreadcrumbs(
 
   buildParentChain(id);
   return result;
-}
-
-export async function loadHierarchyData(): Promise<{
-  data: TreeItem[];
-}> {
-  try {
-    const data = await fetchHierarchy();
-    return {
-      data,
-    };
-  } catch (error) {
-    console.error('Failed to load hierarchy:', error);
-    return { data: [] };
-  }
 }
