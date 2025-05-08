@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from 'react';
 import { Sidebar, SidebarBody } from '../ui/sidebar';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
-import Hierarchy from '../hierarchy/hierarchy';
+import { HierarchyWrapper } from '../hierarchy/hierarchy-wrapper';
 
 export function SidebarWrapper({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
@@ -21,9 +21,7 @@ export function SidebarWrapper({ children }: { children: React.ReactNode }) {
               opacity: open ? 1 : 0,
               transition: { duration: 0.2 },
             }}
-            className='h-full'>
-            <Hierarchy />
-          </motion.div>
+            className='h-full'></motion.div>
         </SidebarBody>
       </Sidebar>
       <Dashboard>{children}</Dashboard>

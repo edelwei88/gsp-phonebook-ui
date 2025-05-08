@@ -13,7 +13,7 @@ export function HierarchyItem({
   onToggle,
 }: HierarchyItemProps) {
   return (
-    <div className='flex items-center relative'>
+    <div className={'flex items-center'}>
       <div className='size-7' onClick={onToggle}>
         {parent &&
           (opened ? (
@@ -28,10 +28,10 @@ export function HierarchyItem({
         className={cn(
           selected
             ? 'text-blue-400 select-none'
-            : 'text-freground dark:text-aliceblue select-none cursor-pointer',
+            : 'text-foreground dark:text-aliceblue select-none cursor-pointer',
           'text-lg',
         )}>
-        {item.name}
+        {item.Name}
       </span>
     </div>
   );

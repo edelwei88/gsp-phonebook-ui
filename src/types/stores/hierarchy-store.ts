@@ -4,9 +4,9 @@ type HierarchyState = {
 };
 
 type HierarchyActions = {
-  assignSelectedId: (id: string) => void;
+  setSelectedId: (id: string) => void;
   clearSelectedId: () => void;
-  assignOpenedIds: (ids: string[]) => void;
+  setOpenedIds: (ids: string[]) => void;
   clearOpenedIds: () => void;
 };
 

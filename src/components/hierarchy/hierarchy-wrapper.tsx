@@ -1,10 +1,8 @@
-'use server';
-
 import { GetOrganizationTree } from '@/api/get-organization-tree';
-import { Hierarchy } from './hierarchy';
+import { HierarchyRecursive } from './hierarchy-recursive';
 
 export async function HierarchyWrapper() {
   const data = await GetOrganizationTree();
 
-  return <Hierarchy items={data} />;
+  return <HierarchyRecursive items={data} allItems={data} />;
 }

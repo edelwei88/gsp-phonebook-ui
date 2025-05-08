@@ -1,12 +1,7 @@
 import { TreeItem } from '@/types/api/tree-item';
 
-type HierarchyItem = {
-  id: string;
-  name: string;
-};
-
 type HierarchyItemProps = {
-  item: HierarchyItem;
+  item: TreeItem;
   selected: boolean;
   opened: boolean;
   parent: boolean;
@@ -18,4 +13,4 @@ type HierarchyProps = {
   items: TreeItem[];
 };
 
-export type { HierarchyItem, HierarchyItemProps, HierarchyProps };
+export type { HierarchyItemProps, HierarchyProps };

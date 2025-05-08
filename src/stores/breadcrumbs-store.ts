@@ -8,13 +8,13 @@ const defaultInitState: BreadcrumbsState = {
   breadcrumbs: [],
 };
 
-export const createBreadcrumbsStore = create<BreadcrumbsStore>(set => ({
+export const useBreadcrumbsStore = create<BreadcrumbsStore>(set => ({
   ...defaultInitState,
-  assign: items =>
+  setBreadcrumbs: items =>
     set(() => ({
       breadcrumbs: items,
     })),
-  clear: () =>
+  clearBreadcrumbs: () =>
     set(() => ({
       breadcrumbs: [],
     })),

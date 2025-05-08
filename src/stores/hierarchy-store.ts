@@ -6,9 +6,9 @@ const defaultInitState: HierarchyState = {
   openedIds: [],
 };
 
-export const createHierarchyStore = create<HierarchyStore>(set => ({
+export const useHierarchyStore = create<HierarchyStore>(set => ({
   ...defaultInitState,
-  assignSelectedId: id =>
+  setSelectedId: id =>
     set(() => ({
       selectedId: id,
     })),
@@ -16,7 +16,7 @@ export const createHierarchyStore = create<HierarchyStore>(set => ({
     set(() => ({
       selectedId: '',
     })),
-  assignOpenedIds: ids =>
+  setOpenedIds: ids =>
     set(() => ({
       openedIds: ids,
     })),

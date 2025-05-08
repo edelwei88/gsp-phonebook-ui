@@ -23,7 +23,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
     const breadcrumbsAfter = items.slice(-2).map((value, index, array) => (
       <Fragment key={value.id}>
         <BreadcrumbSeparator />
-        <BreadcrumbItem item={value} active={index !== array.length} />
+        <BreadcrumbItem item={value} active={index !== array.length - 1} />
       </Fragment>
     ));
 

@@ -7,7 +7,7 @@ import {
 } from '../ui/breadcrumb';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
-// import { setActiveBreadcrumb } from '@/stores/mock';
+import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
 
 export function BreadcrumbItem({
   item,
@@ -15,6 +15,9 @@ export function BreadcrumbItem({
   className,
   ...props
 }: React.ComponentProps<'li'> & BreadcrumbItemProps) {
+  const breadcrumbs = useBreadcrumbsStore(state => state.breadcrumbs);
+  const setBreadcrumbs = useBreadcrumbsStore(state => state.setBreadcrumbs);
+
   if (active)
     return (
       <BreadcrumbItemPlain {...props} className={cn(className)}>
@@ -23,7 +26,9 @@ export function BreadcrumbItem({
             variant='link'
             size='default'
             onClick={() => {
-              // setActiveBreadcrumb(item.id);
+              setBreadcrumbs(
+                breadcrumbs.slice(0, breadcrumbs.indexOf(item) + 1),
+              );
             }}>
             {item.name}
           </Button>

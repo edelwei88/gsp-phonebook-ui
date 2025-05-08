@@ -8,8 +8,11 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '../ui/button';
+import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
 
 export function DropdownMenu({ items }: BreadcrumbsProps) {
+  const breadcrumbs = useBreadcrumbsStore(state => state.breadcrumbs);
+  const setBreadcrumbs = useBreadcrumbsStore(state => state.setBreadcrumbs);
   if (items.length === 0) return null;
 
   return (
@@ -26,7 +29,9 @@ export function DropdownMenu({ items }: BreadcrumbsProps) {
                 variant='link'
                 size='default'
                 onClick={() => {
-                  // setActiveBreadcrumb(value.id);
+                  setBreadcrumbs(
+                    breadcrumbs.slice(0, breadcrumbs.indexOf(value) + 1),
+                  );
                 }}>
                 {value.name}
               </Button>

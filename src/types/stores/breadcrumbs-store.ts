@@ -5,8 +5,8 @@ type BreadcrumbsState = {
 };
 
 type BreadcrumbsActions = {
-  assign: (items: BreadcrumbsItem[]) => void;
-  clear: () => void;
+  setBreadcrumbs: (items: BreadcrumbsItem[]) => void;
+  clearBreadcrumbs: () => void;
 };
 
 type BreadcrumbsStore = BreadcrumbsState & BreadcrumbsActions;
