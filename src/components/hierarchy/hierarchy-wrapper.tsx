@@ -1,8 +1,8 @@
 import { GetOrganizationTree } from '@/api/get-organization-tree';
-import { HierarchyRecursive } from './hierarchy-recursive';
+import { HierarchyRouteProcess } from './hierarchy-route-process';
 
 export async function HierarchyWrapper() {
   const data = await GetOrganizationTree();
 
-  return <HierarchyRecursive items={data} allItems={data} />;
+  return <HierarchyRouteProcess items={data} allItems={data} />;
 }

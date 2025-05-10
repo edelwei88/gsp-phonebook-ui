@@ -24,7 +24,7 @@ export function HierarchyItem({
       </div>
 
       <span
-        onClick={onClick}
+        onClick={!selected ? onClick : () => {}}
         className={cn(
           selected
             ? 'text-blue-400 select-none'

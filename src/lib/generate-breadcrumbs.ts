@@ -36,7 +36,6 @@ export function generateBreadcrumbs(
   }
 
   process(items);
-  console.log(breadcrumbs);
 
   return breadcrumbs;
 }

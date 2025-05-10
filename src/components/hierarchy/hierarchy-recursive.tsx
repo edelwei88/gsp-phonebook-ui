@@ -5,6 +5,7 @@ import { useHierarchyStore } from '@/stores/hierarchy-store';
 import { useRouter } from 'next/navigation';
 import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
 import { generateBreadcrumbs } from '@/lib/generate-breadcrumbs';
+import { routeGen } from '@/lib/route-gen';
 
 export function HierarchyRecursive({
   items,
@@ -31,8 +32,13 @@ export function HierarchyRecursive({
             parent={item.Children.length > 0}
             onClick={() => {
               setSelectedId(item.ID);
-              setBreadcrumbs(generateBreadcrumbs(item.ID, allItems));
-              router.push('/phonebook?asdf=' + item.ID);
+              const breadcrumbs = generateBreadcrumbs(item.ID, allItems);
+              setBreadcrumbs(breadcrumbs);
+              if (breadcrumbs.length > 1) {
+                router.push(routeGen(item.ID, breadcrumbs[0].id, 1, 20));
+              } else {
+                router.push(routeGen(null, item.ID, 1, 20));
+              }
             }}
             onToggle={() => {
               if (openedIds.includes(item.ID))

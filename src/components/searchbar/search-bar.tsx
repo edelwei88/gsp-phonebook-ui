@@ -6,8 +6,6 @@ import { SearchSelect } from '@/components/searchbar/search-select';
 import { HintBlock } from '@/components/searchbar/hint';
 import { Button } from '@/components/ui/button';
 
-import { useGlobalStore } from '@/stores/global-store';
-
 import { Search } from '@/api/search';
 import { User } from '@/types/api/user';
 import { SearchIcon } from 'lucide-react';
@@ -21,11 +19,14 @@ export function SearchBar() {
   const [hasSearched, setHasSearched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
-  const setSearchData = useGlobalStore(state => state.setSearchData);
-  const setSelectedIdAndBreadcrumbs = useGlobalStore(
-    state => state.setSelectedIdAndBreadcrumbs,
-  );
-
+  const setSearchData = ({
+    attribute,
+    value,
+  }: {
+    attribute: string;
+    value: string;
+  }) => {};
+  const setSelectedIdAndBreadcrumbs = (rofl: any, asdf: any) => {};
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       const performSearch = async () => {

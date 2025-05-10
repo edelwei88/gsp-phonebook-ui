@@ -5,7 +5,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { BreadcrumbItem } from './item';
+import { BreadcrumbItem } from './breadcrumbs-item';
 import { Fragment } from 'react';
 import { DropdownMenu } from '@/components/breadcrumbs/dropdown';
 

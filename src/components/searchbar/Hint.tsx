@@ -1,10 +1,9 @@
 'use client';
-import { useGlobalStore } from '@/stores/global-store';
 import { User } from '@/types/api/user';
 import { HintProps } from '@/types/components/search-bar';
 
 const HintBlockContent = ({ users }: { users: User[] }) => {
-  const setSelectedUser = useGlobalStore(state => state.setSelectedUser);
+  const setSelectedUser = (temp: User) => {};
 
   return (
     <div className='flex flex-col w-full'>

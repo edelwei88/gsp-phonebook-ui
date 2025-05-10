@@ -4,6 +4,7 @@ import { EmployeesResponse } from '@/types/api/user';
 import { API } from '@/consts/api';
 
 export async function GetEmployees(
+  employee_id: string | null = null,
   department_id: string | null = null,
   organization_id: string | null = null,
   page: number = 1,
@@ -17,12 +18,12 @@ export async function GetEmployees(
   };
 
   const queryParams = new URLSearchParams();
-  if (!!department_id) {
-    queryParams.append('department_id', department_id);
-  }
-  if (!!organization_id) {
-    queryParams.append('organization_id', organization_id);
-  }
+  if (employee_id) queryParams.append('employee_id', employee_id);
+
+  if (department_id) queryParams.append('department_id', department_id);
+
+  if (organization_id) queryParams.append('organization_id', organization_id);
+
   queryParams.append('page', page.toString());
   queryParams.append('size', size.toString());
 

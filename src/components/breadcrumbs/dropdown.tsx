@@ -9,10 +9,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
+import { useHierarchyStore } from '@/stores/hierarchy-store';
+import { useRouter } from 'next/navigation';
+import { routeGen } from '@/lib/route-gen';
 
 export function DropdownMenu({ items }: BreadcrumbsProps) {
   const breadcrumbs = useBreadcrumbsStore(state => state.breadcrumbs);
   const setBreadcrumbs = useBreadcrumbsStore(state => state.setBreadcrumbs);
+  const setSelectedId = useHierarchyStore(state => state.setSelectedId);
+  const router = useRouter();
   if (items.length === 0) return null;
 
   return (
@@ -29,9 +34,17 @@ export function DropdownMenu({ items }: BreadcrumbsProps) {
                 variant='link'
                 size='default'
                 onClick={() => {
-                  setBreadcrumbs(
-                    breadcrumbs.slice(0, breadcrumbs.indexOf(value) + 1),
+                  const newBreadcrumbs = breadcrumbs.slice(
+                    0,
+                    breadcrumbs.indexOf(value) + 1,
                   );
+                  setBreadcrumbs(newBreadcrumbs);
+                  setSelectedId(newBreadcrumbs.at(-1)?.id || '');
+                  if (newBreadcrumbs.length > 1) {
+                    router.push(routeGen(value.id, breadcrumbs[0].id, 1, 20));
+                  } else {
+                    router.push(routeGen(null, value.id, 1, 20));
+                  }
                 }}>
                 {value.name}
               </Button>

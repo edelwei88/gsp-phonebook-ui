@@ -9,6 +9,7 @@ export function Navbar({ className }: { className?: string }) {
       <div className='flex items-center space-x-4'>
         <Link href={'/'} className='text-xl font-bold'>
           <Image
+            priority={true}
             src='svgs/logo.svg'
             height={24}
             width={200}

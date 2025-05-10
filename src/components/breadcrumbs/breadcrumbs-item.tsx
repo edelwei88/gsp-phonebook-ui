@@ -8,6 +8,9 @@ import {
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
+import { useRouter } from 'next/navigation';
+import { routeGen } from '@/lib/route-gen';
+import { useHierarchyStore } from '@/stores/hierarchy-store';
 
 export function BreadcrumbItem({
   item,
@@ -17,6 +20,8 @@ export function BreadcrumbItem({
 }: React.ComponentProps<'li'> & BreadcrumbItemProps) {
   const breadcrumbs = useBreadcrumbsStore(state => state.breadcrumbs);
   const setBreadcrumbs = useBreadcrumbsStore(state => state.setBreadcrumbs);
+  const setSelectedId = useHierarchyStore(state => state.setSelectedId);
+  const router = useRouter();
 
   if (active)
     return (
@@ -26,9 +31,17 @@ export function BreadcrumbItem({
             variant='link'
             size='default'
             onClick={() => {
-              setBreadcrumbs(
-                breadcrumbs.slice(0, breadcrumbs.indexOf(item) + 1),
+              const newBreadcrumbs = breadcrumbs.slice(
+                0,
+                breadcrumbs.indexOf(item) + 1,
               );
+              setBreadcrumbs(newBreadcrumbs);
+              setSelectedId(newBreadcrumbs.at(-1)?.id || '');
+              if (newBreadcrumbs.length > 1) {
+                router.push(routeGen(item.id, breadcrumbs[0].id, 1, 20));
+              } else {
+                router.push(routeGen(null, item.id, 1, 20));
+              }
             }}>
             {item.name}
           </Button>
