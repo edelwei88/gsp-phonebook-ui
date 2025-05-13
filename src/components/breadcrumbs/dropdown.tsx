@@ -41,9 +41,9 @@ export function DropdownMenu({ items }: BreadcrumbsProps) {
                   setBreadcrumbs(newBreadcrumbs);
                   setSelectedId(newBreadcrumbs.at(-1)?.id || '');
                   if (newBreadcrumbs.length > 1) {
-                    router.push(routeGen(value.id, breadcrumbs[0].id, 1, 20));
+                    router.push(routeGen(value.id, breadcrumbs[0].id, 1));
                   } else {
-                    router.push(routeGen(null, value.id, 1, 20));
+                    router.push(routeGen(null, value.id, 1));
                   }
                 }}>
                 {value.name}

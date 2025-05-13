@@ -38,9 +38,9 @@ export function BreadcrumbItem({
               setBreadcrumbs(newBreadcrumbs);
               setSelectedId(newBreadcrumbs.at(-1)?.id || '');
               if (newBreadcrumbs.length > 1) {
-                router.push(routeGen(item.id, breadcrumbs[0].id, 1, 20));
+                router.push(routeGen(item.id, breadcrumbs[0].id, 1));
               } else {
-                router.push(routeGen(null, item.id, 1, 20));
+                router.push(routeGen(null, item.id, 1));
               }
             }}>
             {item.name}

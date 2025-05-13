@@ -35,9 +35,9 @@ export function HierarchyRecursive({
               const breadcrumbs = generateBreadcrumbs(item.ID, allItems);
               setBreadcrumbs(breadcrumbs);
               if (breadcrumbs.length > 1) {
-                router.push(routeGen(item.ID, breadcrumbs[0].id, 1, 20));
+                router.push(routeGen(item.ID, breadcrumbs[0].id, 1));
               } else {
-                router.push(routeGen(null, item.ID, 1, 20));
+                router.push(routeGen(null, item.ID, 1));
               }
             }}
             onToggle={() => {
