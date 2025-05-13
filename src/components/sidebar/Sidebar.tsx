@@ -3,7 +3,6 @@ import React, { ReactNode, useState } from 'react';
 import { Sidebar, SidebarBody } from '../ui/sidebar';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
-import { HierarchyWrapper } from '../hierarchy/hierarchy-wrapper';
 
 export function SidebarWrapper({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
