@@ -29,7 +29,7 @@ export function HierarchyItem({
           selected
             ? 'text-blue-400 select-none'
             : 'text-foreground dark:text-aliceblue select-none cursor-pointer',
-          'text-lg',
+          'text-base',
         )}>
         {item.Name}
       </span>

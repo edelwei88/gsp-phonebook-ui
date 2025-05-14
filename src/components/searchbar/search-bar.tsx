@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import { SearchSelect } from '@/components/searchbar/search-select';
-import { HintBlock } from '@/components/searchbar/hint';
+import { HintBlock } from '@/components/searchbar/Hint';
 import { Button } from '@/components/ui/button';
 
 import { Search } from '@/api/search';
@@ -56,7 +56,7 @@ export function SearchBar() {
   };
 
   return (
-    <div className='flex gap-2 w-full'>
+    <div className='flex gap-2 my-2 w-full'>
       <div className='flex-1'>
         <div className='h-[50px] rounded-[15px] bg-card ease-in-out'>
           <div className='relative'>
@@ -65,7 +65,7 @@ export function SearchBar() {
             </div>
             <input
               type='search'
-              className='pr-25 block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none bg-transparent'
+              className='pr-28 block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none bg-transparent'
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
               onFocus={() => setIsFocused(true)}
@@ -86,7 +86,7 @@ export function SearchBar() {
       </div>
       <Button
         onClick={handleSearchSubmit}
-        className='cursor-pointer h-[50px] rounded-[15px]'>
+        className='cursor-pointer w-1/8 h-[50px] rounded-[15px]'>
         Найти
       </Button>
     </div>

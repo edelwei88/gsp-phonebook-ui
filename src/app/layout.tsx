@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import { Navbar } from '@/components/navbar/navbar';
+import { Navbar } from '@/components/navbar/Navbar';
 import { SearchBar } from '@/components/searchbar/search-bar';
 import { HierarchyWrapper } from '@/components/hierarchy/hierarchy-wrapper';
 import { BreadcrumbsWrapper } from '@/components/breadcrumbs/breadcrumbs-wrapper';
+import { SidebarWrapper } from '@/components/sidebar/Sidebar';
+import { Table } from 'lucide-react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,10 +38,9 @@ export default function RootLayout({
           <div>
             <BreadcrumbsWrapper />
             <SearchBar />
-            <div className='my-5 flex flex-row'>
-              <HierarchyWrapper />
-              <div>{children}</div>
-            </div>
+            <SidebarWrapper hierarchy={<HierarchyWrapper />}>
+              {children}
+            </SidebarWrapper>
           </div>
         </ThemeProvider>
       </body>

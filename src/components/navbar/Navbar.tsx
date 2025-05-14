@@ -11,8 +11,8 @@ export function Navbar({ className }: { className?: string }) {
           <Image
             priority={true}
             src='svgs/logo.svg'
-            height={24}
-            width={200}
+            height={36}
+            width={250}
             alt='Газстройпром'
           />
         </Link>
