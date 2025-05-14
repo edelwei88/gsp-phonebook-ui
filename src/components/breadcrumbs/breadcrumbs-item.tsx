@@ -28,6 +28,7 @@ export function BreadcrumbItem({
       <BreadcrumbItemPlain {...props} className={cn(className)}>
         <BreadcrumbLink asChild>
           <Button
+            className='hover:no-underline cursor-pointer'
             variant='link'
             size='default'
             onClick={() => {
@@ -51,7 +52,7 @@ export function BreadcrumbItem({
   else
     return (
       <BreadcrumbItemPlain {...props} className={cn(className)}>
-        <BreadcrumbPage>
+        <BreadcrumbPage className='px-4 py-2'>
           <BreadcrumbPage>{item.name}</BreadcrumbPage>
         </BreadcrumbPage>
       </BreadcrumbItemPlain>

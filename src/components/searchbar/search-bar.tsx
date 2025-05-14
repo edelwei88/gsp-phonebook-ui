@@ -9,6 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Search } from '@/api/search';
 import { User } from '@/types/api/user';
 import { SearchIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { searchRouteGen } from '@/lib/search-route-gen';
+import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
+import { useHierarchyStore } from '@/stores/hierarchy-store';
 
 type SearchType = 'name' | 'phone' | 'email';
 
@@ -16,20 +20,17 @@ export function SearchBar() {
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState<SearchType>('name');
   const [searchResults, setSearchResults] = useState<User[]>([]);
+
   const [hasSearched, setHasSearched] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
-  const setSearchData = ({
-    attribute,
-    value,
-  }: {
-    attribute: string;
-    value: string;
-  }) => {};
-  const setSelectedIdAndBreadcrumbs = (rofl: any, asdf: any) => {};
+  const router = useRouter();
+  const setBreadcrumbs = useBreadcrumbsStore(state => state.setBreadcrumbs);
+  const setSelectedId = useHierarchyStore(state => state.setSelectedId);
+
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      const performSearch = async () => {
+    const delayDebounce = setTimeout(() => {
+      async function performSearch() {
         if (!searchValue) {
           setSearchResults([]);
           setHasSearched(false);
@@ -39,20 +40,18 @@ export function SearchBar() {
         const results = await Search(searchValue, searchType);
         setSearchResults(results.items);
         setHasSearched(true);
-      };
+      }
 
       performSearch();
-    }, 200);
+    }, 100);
 
-    return () => clearTimeout(delayDebounceFn);
+    return () => clearTimeout(delayDebounce);
   }, [searchValue, searchType]);
 
   const handleSearchSubmit = () => {
-    setSearchData({
-      attribute: searchType,
-      value: searchValue,
-    });
-    setSelectedIdAndBreadcrumbs(null, []);
+    setBreadcrumbs([]);
+    setSelectedId('');
+    router.push(searchRouteGen(searchValue, searchType));
   };
 
   return (

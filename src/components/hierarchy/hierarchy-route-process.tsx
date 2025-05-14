@@ -3,7 +3,7 @@ import { generateBreadcrumbs } from '@/lib/generate-breadcrumbs';
 import { useHierarchyStore } from '@/stores/hierarchy-store';
 import { TreeItem } from '@/types/api/tree-item';
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { HierarchyRecursive } from './hierarchy-recursive';
 import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
 
@@ -23,7 +23,8 @@ export function HierarchyRouteProcess({
     const id =
       searchParams.get('department_id') ||
       searchParams.get('organization_id') ||
-      allItems[0].ID;
+      (searchParams.has('value') ? '' : allItems[0].ID);
+
     const breadcrumbs = generateBreadcrumbs(id, allItems);
     setSelectedId(id);
     setBreadcrumbs(breadcrumbs);
