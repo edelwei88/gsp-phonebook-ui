@@ -12,10 +12,4 @@ type TableBodyProps = {
   items: User[];
 };
 
-type TableWrapperProps = {
-  department_id: string | null;
-  organization_id: string;
-  page: number;
-};
-
-export type { TableRowProps, TableBodyProps, TableWrapperProps };
+export type { TableRowProps, TableBodyProps };

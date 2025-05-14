@@ -1,23 +1,21 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
-import { Navbar } from '@/components/navbar/Navbar';
+import { Navbar } from '@/components/navbar/navbar';
 import { SearchBar } from '@/components/searchbar/search-bar';
 import { HierarchyWrapper } from '@/components/hierarchy/hierarchy-wrapper';
 import { BreadcrumbsWrapper } from '@/components/breadcrumbs/breadcrumbs-wrapper';
-import { SidebarWrapper } from '@/components/sidebar/Sidebar';
-import { Table } from 'lucide-react';
+import HierarchyTable from '@/components/kal/kal';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
+// const geistSans = Geist({
+//   variable: '--font-geist-sans',
+//   subsets: ['latin'],
+// });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+// const geistMono = Geist_Mono({
+//   variable: '--font-geist-mono',
+//   subsets: ['latin'],
+// });
 
 export const metadata: Metadata = {
   title: 'Телефонный справочник ГСП',
@@ -31,16 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ru' suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased mx-10 mt-1`}>
+      <body className={`antialiased mx-10 mt-1`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Navbar />
           <div>
             <BreadcrumbsWrapper />
             <SearchBar />
-            <SidebarWrapper hierarchy={<HierarchyWrapper />}>
+            <HierarchyTable hierarchyChildren={<HierarchyWrapper />}>
               {children}
-            </SidebarWrapper>
+            </HierarchyTable>
           </div>
         </ThemeProvider>
       </body>

@@ -3,7 +3,7 @@ import { generateBreadcrumbs } from '@/lib/generate-breadcrumbs';
 import { useHierarchyStore } from '@/stores/hierarchy-store';
 import { TreeItem } from '@/types/api/tree-item';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { HierarchyRecursive } from './hierarchy-recursive';
 import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
 
