@@ -58,7 +58,7 @@ export function SearchBar() {
   return (
     <div className='flex gap-2 my-2 w-full'>
       <div className='flex-1'>
-        <div className='h-[50px] rounded-[15px] bg-card ease-in-out'>
+        <div className='h-[50px] rounded-[15px] bg-input ease-in-out'>
           <div className='relative'>
             <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
               <SearchIcon />

@@ -5,7 +5,7 @@ import { Navbar } from '@/components/navbar/navbar';
 import { SearchBar } from '@/components/searchbar/search-bar';
 import { HierarchyWrapper } from '@/components/hierarchy/hierarchy-wrapper';
 import { BreadcrumbsWrapper } from '@/components/breadcrumbs/breadcrumbs-wrapper';
-import HierarchyTable from '@/components/kal/kal';
+import HierarchyTable from '@/components/wrapper/wrapper';
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ru' suppressHydrationWarning>
-      <body className={`antialiased mx-10 mt-1`}>
+      <body className={`antialiased mx-10`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Navbar />
           <div>

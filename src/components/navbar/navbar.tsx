@@ -5,7 +5,7 @@ import { ThemeSwitcher } from '@/components/navbar/theme-switcher';
 
 export function Navbar({ className }: { className?: string }) {
   return (
-    <header className={`flex mb-6 justify-between ${className}`}>
+    <header className={`flex mb-2 justify-between ${className}`}>
       <div className='flex items-center space-x-4'>
         <Link href={'/'} className='text-xl font-bold'>
           <Image
