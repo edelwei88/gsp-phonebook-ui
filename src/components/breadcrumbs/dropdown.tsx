@@ -23,14 +23,14 @@ export function DropdownMenu({ items }: BreadcrumbsProps) {
   return (
     <BreadcrumbItem>
       <DropdownMenuPlain>
-        <DropdownMenuTrigger className='flex items-center gap-1'>
-          <BreadcrumbEllipsis className='h-4 w-4' />
-          <span className='sr-only'>Открыть меню</span>
+        <DropdownMenuTrigger className='flex items-center gap-4'>
+          <BreadcrumbEllipsis />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {items.map(value => (
-            <DropdownMenuItem key={value.id}>
+            <DropdownMenuItem key={value.id} className='cursor-pointer'>
               <Button
+                className='hover:no-underline cursor-pointer'
                 variant='link'
                 size='default'
                 onClick={() => {

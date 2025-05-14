@@ -3,8 +3,6 @@ import { User } from '@/types/api/user';
 import { HintProps } from '@/types/components/search-bar';
 
 const HintBlockContent = ({ users }: { users: User[] }) => {
-  const setSelectedUser = (temp: User) => {};
-
   return (
     <div className='flex flex-col w-full'>
       <div className='flex flex-row px-4 py-2 items-center justify-around text-center'>
@@ -17,18 +15,22 @@ const HintBlockContent = ({ users }: { users: User[] }) => {
         <UserRow
           key={user.ID}
           user={user}
-          onClick={() => setSelectedUser(user)}
+          onClick={() => {
+            alert(user.ID);
+          }}
         />
       ))}
     </div>
   );
 };
 
-const HeaderCell = ({ children }: { children: React.ReactNode }) => (
-  <div className='flex flex-col w-1/3 text-center'>
-    <p className='font-bold'>{children}</p>
-  </div>
-);
+function HeaderCell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className='flex flex-col w-1/3 text-center'>
+      <p className='font-bold'>{children}</p>
+    </div>
+  );
+}
 
 const UserRow = ({ user, onClick }: { user: User; onClick: () => void }) => (
   <div
@@ -41,31 +43,31 @@ const UserRow = ({ user, onClick }: { user: User; onClick: () => void }) => (
   </div>
 );
 
-const Cell = ({
-  children,
-  className = '',
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <div className={`w-1/3 flex flex-col ${className}`}>
-    <p className='text-sm'>{children}</p>
-  </div>
-);
+function Cell({ children }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`w-1/3 flex flex-col`}>
+      <p className='text-sm'>{children}</p>
+    </div>
+  );
+}
 
-const EmptyState = () => (
-  <div className='h-32 flex items-center justify-center'>
-    <span>Ничего не найдено</span>
-  </div>
-);
+function EmptyState() {
+  return (
+    <div className='h-32 flex items-center justify-center'>
+      <span>Ничего не найдено</span>
+    </div>
+  );
+}
 
 export function HintBlock({ users, hasSearched }: HintProps) {
-  if (!users || users.length === 0) {
-    return hasSearched ? (
+  if (users.length === 0 && hasSearched) {
+    return (
       <HintContainer>
         <EmptyState />
       </HintContainer>
-    ) : null;
+    );
+  } else if (!hasSearched) {
+    return null;
   }
 
   return (
