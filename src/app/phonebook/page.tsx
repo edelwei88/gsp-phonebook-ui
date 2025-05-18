@@ -4,20 +4,22 @@ import { GetOrganizationTree } from '@/api/get-organization-tree';
 import { Pagination, PaginationSearch } from '@/components/pagination/wrapper';
 import { TableWrapper } from '@/components/table/wrapper';
 import { TABLE } from '@/consts/table';
+import { Suspense } from 'react';
+import { LoadingState } from '@/components/table/loading';
 
-export default async function Page({
-  searchParams,
+async function PageWrapper({
+  value,
+  attribute,
+  department_id,
+  organization_id,
+  page,
 }: {
-  searchParams: Promise<{
-    value: string;
-    attribute: string;
-    department_id: string;
-    organization_id: string;
-    page: number;
-  }>;
+  value: string;
+  attribute: string;
+  department_id: string;
+  organization_id: string;
+  page: number;
 }) {
-  const { value, attribute, department_id, organization_id, page } =
-    await searchParams;
   let json;
   let search = false;
 
@@ -63,4 +65,34 @@ export default async function Page({
       </div>
     );
   }
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    value: string;
+    attribute: string;
+    department_id: string;
+    organization_id: string;
+    page: number;
+  }>;
+}) {
+  const { value, attribute, department_id, organization_id, page } =
+    await searchParams;
+
+  return (
+    <Suspense
+      fallback={<LoadingState />}
+      key={JSON.stringify({ ...(await searchParams) })}
+    >
+      <PageWrapper
+        value={value}
+        attribute={attribute}
+        department_id={department_id}
+        organization_id={organization_id}
+        page={page}
+      />
+    </Suspense>
+  );
 }

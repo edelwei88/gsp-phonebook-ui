@@ -1,17 +1,17 @@
 export type Organization = {
-    ID: string;
-    Name: string;
-    Children: Organization[];
-}
+  ID: string;
+  Name: string;
+  Children: Organization[];
+};
 
 export function getDepartmentPath(
   organizations: Organization[] | undefined,
-  targetId: string
+  targetId: string,
 ): string {
-  let path: string[] = [];
-  
+  const path: string[] = [];
+
   if (!organizations || !Array.isArray(organizations)) {
-    return "Не указано";
+    return 'Не указано';
   }
 
   function findNode(nodes: Organization[]): boolean {
@@ -22,7 +22,7 @@ export function getDepartmentPath(
         path.unshift(node.Name);
         return true;
       }
-      
+
       const children = node.Children || [];
       if (findNode(children)) {
         path.unshift(node.Name);
@@ -33,5 +33,6 @@ export function getDepartmentPath(
   }
 
   findNode(organizations);
-  return path.join(" → ") || "Не указано";
+  return path.join(' → ') || 'Не указано';
 }
+

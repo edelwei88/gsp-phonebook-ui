@@ -2,16 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
 import { Navbar } from '@/components/navbar/navbar';
-import { SearchBar } from '@/components/searchbar/search-bar';
-import { HierarchyWrapper } from '@/components/hierarchy/hierarchy-wrapper';
-import { BreadcrumbsWrapper } from '@/components/breadcrumbs/breadcrumbs-wrapper';
-import HierarchyTable from '@/components/wrapper/wrapper';
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
 //   subsets: ['latin'],
 // });
-
+//
 // const geistMono = Geist_Mono({
 //   variable: '--font-geist-mono',
 //   subsets: ['latin'],
@@ -32,13 +28,7 @@ export default function RootLayout({
       <body className={`antialiased mx-10`}>
         <ThemeProvider attribute='class' defaultTheme='light'>
           <Navbar />
-          <div>
-            <BreadcrumbsWrapper />
-            <SearchBar />
-            <HierarchyTable hierarchyChildren={<HierarchyWrapper />}>
-              {children}
-            </HierarchyTable>
-          </div>
+          <div>{children}</div>
         </ThemeProvider>
       </body>
     </html>
