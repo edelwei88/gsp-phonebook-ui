@@ -4,9 +4,11 @@ import { TableCell, TableRow } from '../ui/table';
 import { useState } from 'react';
 import EmployeeCard from '../employee-card/employee-card';
 import { createPortal } from 'react-dom';
+import { Organization } from '@/types/components/organization';
 
 export function Row({
   user,
+  organizations,
   ...props
 }: React.ComponentProps<'tr'> & TableRowProps) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,6 +29,7 @@ export function Row({
       {modalOpen &&
         createPortal(
           <EmployeeCard
+            organizations={organizations}
             isOpen={modalOpen}
             onClose={() => {
               setModalOpen(false);

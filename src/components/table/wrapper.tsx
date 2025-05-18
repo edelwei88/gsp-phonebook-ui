@@ -9,6 +9,8 @@ import { GetOrganizationTree } from '@/api/get-organization-tree';
 import { generateBreadcrumbs } from '@/lib/generate-breadcrumbs';
 
 export async function TableWrapper({ items }: { items: User[] }) {
+  const orgTree = await GetOrganizationTree();
+
   if (hasDifferentValues(items, 'DepartmentID')) {
     const orgTree = await GetOrganizationTree();
     return [...getDifferentValues(items, 'DepartmentID')].map(value => (
@@ -18,7 +20,8 @@ export async function TableWrapper({ items }: { items: User[] }) {
         </div>
         <Table>
           <Header />
-          <Body items={items.filter(item => item.DepartmentID === value)} />
+          <Body items={items.filter(item => item.DepartmentID === value)}
+          organizations={orgTree} />
         </Table>
       </div>
     ));
@@ -26,7 +29,8 @@ export async function TableWrapper({ items }: { items: User[] }) {
     return (
       <Table>
         <Header />
-        <Body items={items} />
+        <Body items={items}
+        organizations={orgTree} />
       </Table>
     );
 }
