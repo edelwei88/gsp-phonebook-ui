@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang='ru' suppressHydrationWarning>
       <body className={`antialiased mx-10`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+        <ThemeProvider attribute='class' defaultTheme='light'>
           <Navbar />
           <div>
             <BreadcrumbsWrapper />

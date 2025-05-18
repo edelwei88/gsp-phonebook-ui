@@ -1,10 +1,7 @@
 import { User } from '../api/user';
 
 type TableRowProps = {
-  name: string;
-  occupation: string;
-  email: string;
-  phoneNumber: string;
+  user: User;
   onClick(): void;
 };
 

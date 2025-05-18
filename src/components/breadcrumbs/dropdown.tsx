@@ -12,6 +12,7 @@ import { useBreadcrumbsStore } from '@/stores/breadcrumbs-store';
 import { useHierarchyStore } from '@/stores/hierarchy-store';
 import { useRouter } from 'next/navigation';
 import { routeGen } from '@/lib/route-gen';
+import { ChevronRight } from 'lucide-react';
 
 export function DropdownMenu({ items }: BreadcrumbsProps) {
   const breadcrumbs = useBreadcrumbsStore(state => state.breadcrumbs);
@@ -27,7 +28,7 @@ export function DropdownMenu({ items }: BreadcrumbsProps) {
           <BreadcrumbEllipsis />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          {items.map(value => (
+          {items.map((value, index) => (
             <DropdownMenuItem key={value.id} className='cursor-pointer'>
               <Button
                 className='hover:no-underline cursor-pointer'
@@ -45,7 +46,11 @@ export function DropdownMenu({ items }: BreadcrumbsProps) {
                   } else {
                     router.push(routeGen(null, value.id, 1));
                   }
-                }}>
+                }}
+              >
+                {[...Array(index)].map((_, i) => (
+                  <ChevronRight key={i} />
+                ))}
                 {value.name}
               </Button>
             </DropdownMenuItem>

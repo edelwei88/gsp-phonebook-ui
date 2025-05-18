@@ -13,10 +13,7 @@ export function Body({
       {items.map(value => (
         <Row
           key={value.ID}
-          name={value.FullNameRus}
-          occupation={value.Workplace}
-          phoneNumber={value.Phone}
-          email={value.Email}
+          user={value}
           onClick={() => {
             alert(value.ID);
           }}

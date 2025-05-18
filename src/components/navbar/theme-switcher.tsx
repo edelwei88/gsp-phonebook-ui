@@ -23,7 +23,8 @@ export function ThemeSwitcher() {
   return (
     <button
       className='px-4 py-2 rounded-[15px] cursor-pointer'
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       {theme === 'light' ? <Sun size='24' /> : <Moon size='24' />}
     </button>
   );
