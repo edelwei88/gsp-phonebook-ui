@@ -41,12 +41,12 @@ export default memo(function EmployeeCard({
     <>
       <div
         onClick={handleBackdropClick}
-        className='fixed inset-0 bg-background opacity-75 z-40 pointer-events-auto'
+        className='fixed inset-0 bg-card opacity-75 z-40 pointer-events-auto'
       />
 
       <div className='fixed inset-0 flex items-center justify-center z-50 pointer-events-none'>
         <div
-          className='w-full md:w-2/3 lg:w-1/3 rounded-xl bg-background border-1 border-azul shadow-lg
+          className='w-full md:w-2/3 lg:w-1/3 rounded-xl bg-card border-1 border-azul shadow-lg
             relative pointer-events-auto max-h-[90vh] overflow-y-auto'
         >
           <button
