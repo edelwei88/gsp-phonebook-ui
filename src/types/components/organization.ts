@@ -35,4 +35,3 @@ export function getDepartmentPath(
   findNode(organizations);
   return path.join(' → ') || 'Не указано';
 }
-

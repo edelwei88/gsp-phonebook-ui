@@ -10,12 +10,6 @@ export async function Search(
 ): Promise<EmployeesResponse> {
   if (!checkSearchAttribute(attribute)) throw new Error('Wrong parameters');
 
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
   const queryParams = new URLSearchParams();
   queryParams.append('value', value);
   queryParams.append('attribute', attribute);
@@ -24,7 +18,13 @@ export async function Search(
 
   const response = await fetch(
     API.ADDR + API.ENDPOINTS.search + '?' + queryParams.toString(),
-    requestOptions,
+    {
+      cache: 'no-store',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
   );
 
   if (!response.ok)

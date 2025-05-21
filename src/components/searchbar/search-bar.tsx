@@ -37,7 +37,7 @@ export function SearchBar() {
           return;
         }
 
-        const results = await Search(searchValue, searchType);
+        const results = await Search(searchValue, searchType, 1, 10);
         setSearchResults(results.items);
         setHasSearched(true);
       }
@@ -49,10 +49,17 @@ export function SearchBar() {
   }, [searchValue, searchType]);
 
   const handleSearchSubmit = () => {
-    setBreadcrumbs([]);
+    setBreadcrumbs([{ name: 'Поиск', id: '' }]);
     setSelectedId('');
     router.push(searchRouteGen(searchValue, searchType));
   };
+
+  const [checkingModal, setCheckingModal] = useState(false);
+
+  function setCheckingModalAndBlur(bool: boolean) {
+    setCheckingModal(bool);
+    setIsFocused(bool);
+  }
 
   return (
     <div className='flex gap-2 my-2 w-full'>
@@ -64,11 +71,14 @@ export function SearchBar() {
             </div>
             <input
               type='search'
-              className='pr-28 block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2 focus:border-primary focus:outline-none bg-transparent'
+              className='pr-28 block w-full h-[50px] pl-10 border-none text-center rounded-[20px] py-2
+                focus:border-primary focus:outline-none bg-transparent'
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
               onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
+              onBlur={() => {
+                if (!checkingModal) setIsFocused(false);
+              }}
               placeholder='Поиск...'
             />
             <SearchSelect
@@ -77,15 +87,25 @@ export function SearchBar() {
             />
           </div>
           {isFocused && (
-            <div className='relative'>
-              <HintBlock users={searchResults} hasSearched={hasSearched} />
+            <div
+              className='relative'
+              onMouseDown={() => {
+                setCheckingModal(true);
+              }}
+            >
+              <HintBlock
+                onMouseDown={setCheckingModalAndBlur}
+                users={searchResults}
+                hasSearched={hasSearched}
+              />
             </div>
           )}
         </div>
       </div>
       <Button
         onClick={handleSearchSubmit}
-        className='cursor-pointer w-1/8 h-[50px] rounded-[15px]'>
+        className='cursor-pointer w-1/8 h-[50px] rounded-[15px]'
+      >
         Найти
       </Button>
     </div>

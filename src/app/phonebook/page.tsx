@@ -36,35 +36,36 @@ async function PageWrapper({
     );
   }
 
-  if (search) {
-    return (
-      <div>
-        <TableWrapper items={json.items} />
-        <PaginationSearch
-          currentPage={json.page}
-          maxPage={json.pages}
-          value={value}
-          attribute={attribute}
-        />
+  return (
+    <div className='h-[calc(100vh-170px)] rounded-[15px]'>
+      <div className='flex-1 overflow-y-auto rounded-[15px]'>
+        <TableWrapper items={json.items} className='overflow-y-scroll' />
       </div>
-    );
-  } else {
-    return (
-      <div>
-        <TableWrapper items={json.items} />
-        <Pagination
-          currentPage={json.page}
-          maxPage={json.pages}
-          department_id={department_id}
-          organization_id={
-            organization_id
-              ? organization_id
-              : (await GetOrganizationTree())[0].ID
-          }
-        />
+      <div className='sticky bottom-0 bg-card z-10 h-10 rounded-[15px]'>
+        {search ? (
+          <PaginationSearch
+            className='h-full'
+            currentPage={json.page}
+            maxPage={json.pages}
+            value={value}
+            attribute={attribute}
+          />
+        ) : (
+          <Pagination
+            className='h-full'
+            currentPage={json.page}
+            maxPage={json.pages}
+            department_id={department_id}
+            organization_id={
+              organization_id
+                ? organization_id
+                : (await GetOrganizationTree())[0].ID
+            }
+          />
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default async function Page({

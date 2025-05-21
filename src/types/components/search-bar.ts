@@ -8,6 +8,7 @@ type SearchSelectProps = {
 type HintProps = {
   users: User[];
   hasSearched: boolean;
+  onMouseDown(bool: boolean): void;
 };
 
 export type { SearchSelectProps, HintProps };

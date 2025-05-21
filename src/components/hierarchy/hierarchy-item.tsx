@@ -30,7 +30,8 @@ export function HierarchyItem({
             ? 'text-blue-400 select-none'
             : 'text-foreground dark:text-aliceblue select-none cursor-pointer',
           'text-base',
-        )}>
+        )}
+      >
         {item.Name}
       </span>
     </div>

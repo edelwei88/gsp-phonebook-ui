@@ -10,13 +10,6 @@ export async function GetEmployees(
   page: number = 1,
   size: number = 50,
 ): Promise<EmployeesResponse> {
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
   const queryParams = new URLSearchParams();
   if (employee_id) queryParams.append('employee_id', employee_id);
 
@@ -29,7 +22,13 @@ export async function GetEmployees(
 
   const response = await fetch(
     API.ADDR + API.ENDPOINTS.get_employees + '?' + queryParams.toString(),
-    requestOptions,
+    {
+      cache: 'no-store',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
   );
 
   if (!response.ok)

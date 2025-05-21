@@ -9,7 +9,8 @@ export function Body({
   items,
   organizations,
   ...props
-}: React.ComponentProps<'tbody'> & TableBodyProps & {organizations: Organization[]}) {
+}: React.ComponentProps<'tbody'> &
+  TableBodyProps & { organizations: Organization[] }) {
   return (
     <TableBody {...props}>
       {items.map(value => (

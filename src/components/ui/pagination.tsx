@@ -79,7 +79,8 @@ function PaginationPrevious({
       aria-label='Go to previous page'
       size='default'
       className={cn('gap-1 px-2.5 sm:pl-2.5 transition-none', className)}
-      {...props}>
+      {...props}
+    >
       <ChevronLeftIcon />
       <span className='hidden sm:block'>Предыдущая</span>
     </PaginationLink>
@@ -95,7 +96,8 @@ function PaginationNext({
       aria-label='Go to next page'
       size='default'
       className={cn('gap-1 px-2.5 sm:pr-2.5 transition-none', className)}
-      {...props}>
+      {...props}
+    >
       <span className='hidden sm:block'>Следующая</span>
       <ChevronRightIcon />
     </PaginationLink>
@@ -111,7 +113,8 @@ function PaginationEllipsis({
       aria-hidden
       data-slot='pagination-ellipsis'
       className={cn('flex size-9 items-center justify-center', className)}
-      {...props}>
+      {...props}
+    >
       <MoreHorizontalIcon className='size-4' />
       <span className='sr-only'>More pages</span>
     </span>

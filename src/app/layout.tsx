@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ru' suppressHydrationWarning>
-      <body className={`antialiased mx-10`}>
+      <body className='antialiased mx-10 min-h-[500px] min-w-[1100px]'>
         <ThemeProvider attribute='class' defaultTheme='light'>
           <Navbar />
           <div>{children}</div>

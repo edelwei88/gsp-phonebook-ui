@@ -15,18 +15,20 @@ export function Pagination({
   maxPage,
   department_id,
   organization_id,
+  className,
 }: {
   currentPage: number;
   maxPage: number;
   department_id: string;
   organization_id: string;
+  className?: string;
 }) {
   if (maxPage < 2) return null;
 
   const pages = generatePages(currentPage, maxPage);
 
   return (
-    <PaginationRoot>
+    <PaginationRoot className={className ?? ''}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -44,7 +46,8 @@ export function Pagination({
             <PaginationLink
               prefetch={true}
               href={routeGen(department_id, organization_id, value)}
-              className={currentPage === value ? 'font-bold' : ''}>
+              className={currentPage === value ? 'font-bold' : ''}
+            >
               {value}
             </PaginationLink>
           </PaginationItem>
@@ -70,18 +73,20 @@ export function PaginationSearch({
   maxPage,
   value,
   attribute,
+  className,
 }: {
   currentPage: number;
   maxPage: number;
   value: string;
   attribute: string;
+  className?: string;
 }) {
   if (maxPage < 2) return null;
 
   const pages = generatePages(currentPage, maxPage);
 
   return (
-    <PaginationRoot>
+    <PaginationRoot className={className ?? ''}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -99,7 +104,8 @@ export function PaginationSearch({
             <PaginationLink
               prefetch={true}
               href={searchRouteGen(value, attribute, item)}
-              className={currentPage === item ? 'font-bold' : ''}>
+              className={currentPage === item ? 'font-bold' : ''}
+            >
               {item}
             </PaginationLink>
           </PaginationItem>

@@ -43,7 +43,8 @@ export function BreadcrumbItem({
               } else {
                 router.push(routeGen(null, item.id, 1));
               }
-            }}>
+            }}
+          >
             {item.name}
           </Button>
         </BreadcrumbLink>

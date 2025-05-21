@@ -9,16 +9,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ru' suppressHydrationWarning>
-      <body className={`antialiased mx-10`}>
-        <div>
-          <BreadcrumbsWrapper />
-          <SearchBar />
-          <HierarchyTable hierarchyChildren={<HierarchyWrapper />}>
-            {children}
-          </HierarchyTable>
-        </div>
-      </body>
-    </html>
+    <div>
+      <BreadcrumbsWrapper />
+      <SearchBar />
+      <HierarchyTable hierarchyChildren={<HierarchyWrapper />}>
+        {children}
+      </HierarchyTable>
+    </div>
   );
 }

@@ -112,10 +112,12 @@ export const DesktopSidebar = ({
         overflowY: open ? 'scroll' : 'hidden',
       }}
       transition={{ duration: 0.2 }}
-      {...props}>
+      {...props}
+    >
       <button
         onClick={() => setOpen(!open)}
-        className='absolute h-10 w-10 top-2 z-10 bg-input rounded-full p-1 shadow-md border border-neutral-200 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors'>
+        className='absolute h-10 w-10 top-2 z-10 bg-input rounded-full p-1 shadow-md border border-neutral-200 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors'
+      >
         {open ? (
           <IconChevronLeft className='w-7 h-7 text-foreground' />
         ) : (
@@ -129,7 +131,8 @@ export const DesktopSidebar = ({
           x: animate ? (open ? 0 : '-100%') : 0,
           opacity: animate ? (open ? 1 : 0.7) : 1,
         }}
-        transition={{ duration: 0.2 }}>
+        transition={{ duration: 0.2 }}
+      >
         {children}
       </motion.div>
     </motion.div>
@@ -148,7 +151,8 @@ export const MobileSidebar = ({ className, children }: MobileSidebarProps) => {
     <div
       className={cn(
         'h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between w-full',
-      )}>
+      )}
+    >
       <div className='flex justify-end z-20 w-full'>
         <IconMenu2
           className='text-neutral-800 dark:text-neutral-200'
@@ -166,10 +170,12 @@ export const MobileSidebar = ({ className, children }: MobileSidebarProps) => {
           x: open ? 0 : '-100%',
           opacity: open ? 1 : 0,
         }}
-        transition={{ duration: 0.3 }}>
+        transition={{ duration: 0.3 }}
+      >
         <div
           className='absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200'
-          onClick={() => setOpen(!open)}>
+          onClick={() => setOpen(!open)}
+        >
           <IconX />
         </div>
         {children}
@@ -192,7 +198,8 @@ export const SidebarLink = ({ link, className }: SidebarLinkProps) => {
       className={cn(
         'flex items-center justify-start gap-2 group/sidebar py-2 px-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors',
         className,
-      )}>
+      )}
+    >
       {link.icon}
       <motion.span
         initial={false}
@@ -201,7 +208,8 @@ export const SidebarLink = ({ link, className }: SidebarLinkProps) => {
           width: animate ? (open ? 'auto' : 0) : 'auto',
           transition: { duration: 0.1 },
         }}
-        className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-nowrap overflow-hidden'>
+        className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-nowrap overflow-hidden'
+      >
         {link.label}
       </motion.span>
     </a>
