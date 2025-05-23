@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import React, { useState, createContext, useContext } from 'react';
-import { AnimatePresence, motion, MotionProps } from 'framer-motion';
+import { motion, MotionProps } from 'framer-motion';
 import {
   IconMenu2,
   IconX,
@@ -103,7 +103,8 @@ export const DesktopSidebar = ({
   return (
     <motion.div
       className={cn(
-        'h-full px-2 bg-transparent border-r-1 w-fit py-2 hidden md:flex flex-col shrink-0 relative overflow-hidden',
+        `h-full px-2 bg-transparent border-r-1 w-fit py-2 hidden md:flex flex-col
+        shrink-0 relative overflow-hidden`,
         className,
       )}
       initial={false}
@@ -116,7 +117,9 @@ export const DesktopSidebar = ({
     >
       <button
         onClick={() => setOpen(!open)}
-        className='absolute h-10 w-10 top-2 z-10 bg-input rounded-full p-1 shadow-md border border-neutral-200 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors'
+        className='absolute h-10 w-10 top-2 z-10 bg-input rounded-full p-1 shadow-md border
+          border-neutral-200 dark:border-neutral-600 hover:bg-neutral-100
+          dark:hover:bg-neutral-600 transition-colors'
       >
         {open ? (
           <IconChevronLeft className='w-7 h-7 text-foreground' />
@@ -162,7 +165,8 @@ export const MobileSidebar = ({ className, children }: MobileSidebarProps) => {
 
       <motion.div
         className={cn(
-          'fixed h-full w-[350px] inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between',
+          `fixed h-full w-[350px] inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex
+          flex-col justify-between`,
           className,
         )}
         initial={false}
@@ -196,7 +200,8 @@ export const SidebarLink = ({ link, className }: SidebarLinkProps) => {
     <a
       href={link.href}
       className={cn(
-        'flex items-center justify-start gap-2 group/sidebar py-2 px-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors',
+        `flex items-center justify-start gap-2 group/sidebar py-2 px-2 rounded-md
+        hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors`,
         className,
       )}
     >
@@ -208,7 +213,8 @@ export const SidebarLink = ({ link, className }: SidebarLinkProps) => {
           width: animate ? (open ? 'auto' : 0) : 'auto',
           transition: { duration: 0.1 },
         }}
-        className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-nowrap overflow-hidden'
+        className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1
+          transition duration-150 whitespace-nowrap overflow-hidden'
       >
         {link.label}
       </motion.span>

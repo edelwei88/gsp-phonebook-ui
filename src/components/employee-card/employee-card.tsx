@@ -80,45 +80,45 @@ export default memo(function EmployeeCard({
           </div>
 
           <div className='px-6 py-4 space-y-1'>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Организация:</label>
-              <CopyField>{employee.OrganizationID}</CopyField>
+              <CopyField>{organizationPath}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Подразделение:</label>
-              <CopyField>{employee.DepartmentID}</CopyField>
+              <CopyField>{departmentPath.split('→ ').at(-1)}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Префикс:</label>
               <CopyField>{employee.Phone}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Телефон:</label>
               <CopyField>{employee.Phone}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Городской номер:</label>
               <CopyField>{employee.Phone}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>
                 Мобильный (рабочий):
               </label>
               <CopyField>{employee.Mobile}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Мобильный (личный):</label>
               <CopyField>{employee.Mobile}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Email:</label>
               <CopyField>{employee.Email}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Рабочее место:</label>
               <CopyField>{employee.Workplace}</CopyField>
             </div>
-            <div className='grid grid-cols-[120px_1fr] gap-4items-center'>
+            <div className='grid grid-cols-[120px_1fr] gap-4'>
               <label className='text-sm font-medium'>Адрес:</label>
               <CopyField>{employee.Address}</CopyField>
             </div>

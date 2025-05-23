@@ -24,8 +24,11 @@ export function HierarchyRouteProcess({
       searchParams.get('department_id') ||
       searchParams.get('organization_id') ||
       (searchParams.has('value') ? '' : allItems[0].ID);
+    const isSearching = searchParams.has('attribute');
 
-    const breadcrumbs = generateBreadcrumbs(id, allItems);
+    const breadcrumbs = isSearching
+      ? [{ name: 'Поиск', id: '' }]
+      : generateBreadcrumbs(id, allItems);
     setSelectedId(id);
     setBreadcrumbs(breadcrumbs);
     setOpenedIds(breadcrumbs.slice(0, -1).map(value => value.id));

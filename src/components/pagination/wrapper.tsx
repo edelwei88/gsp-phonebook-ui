@@ -32,7 +32,7 @@ export function Pagination({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            prefetch={true}
+            prefetch={currentPage !== 1}
             href={routeGen(department_id, organization_id, currentPage - 1)}
             isActive={currentPage > 1}
             className={
@@ -55,7 +55,7 @@ export function Pagination({
 
         <PaginationItem>
           <PaginationNext
-            prefetch={true}
+            prefetch={currentPage !== maxPage}
             href={routeGen(department_id, organization_id, currentPage + 1)}
             isActive={!(currentPage === maxPage)}
             className={

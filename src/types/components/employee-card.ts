@@ -1,4 +1,3 @@
-import { TreeItem } from '../api/tree-item';
 import { User } from '../api/user';
 import { Organization } from './organization';
 

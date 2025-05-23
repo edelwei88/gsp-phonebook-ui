@@ -18,7 +18,7 @@ export default function CopyField({ children }: { children: React.ReactNode }) {
 
   return (
     <div className='flex items-center gap-2'>
-      <p className='truncate flex-1'>{children}</p>
+      <p className='truncate flex-1 text-wrap'>{children}</p>
       <button
         onClick={handleCopy}
         className={`p-1.5 rounded-md transition-colors ${

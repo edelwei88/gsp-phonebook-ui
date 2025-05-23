@@ -13,7 +13,7 @@ export function LoadingState() {
             <TableRow key={index}>
               {[...Array(4)].map((_, index) => (
                 <TableCell key={index}>
-                  <Skeleton className='w-full h-10' />
+                  <Skeleton className='w-full h-14' />
                 </TableCell>
               ))}
             </TableRow>
